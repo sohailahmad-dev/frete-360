@@ -1,0 +1,24 @@
+/* styling  */
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+body {
+  background-color: #F7F7FF;
+}
+
+.content-padding {
+  padding: 10px 7%;
+}
+
+
+
+
+
+
+
+@media (max-width: 699px) {}

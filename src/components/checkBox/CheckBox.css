@@ -1,0 +1,61 @@
+.checkBox-text {
+    padding-right: 30%;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.checkBox-1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+    font-size: 16px;
+}
+
+.checkBox-qual {
+    width: 75px;
+    height: 29px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #C1C1C1;
+    border-radius: 5px;
+    font-size: 16px;
+    /* cursor: pointer; */
+}
+
+.checkBox-2 {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.checkBox-3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkBox-box {
+    width: 25px;
+    height: 25px;
+    border-radius: 5px;
+    border: 2px solid #CFCFCF;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkBox-selected {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background-color: #0026AB;
+}
+
+@media (max-width: 699px) {
+    .mainCheckBox {
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,34 @@
+@font-face {
+    font-family: Poppins-SemiBold;
+    src: url('/font/Poppins/Poppins-SemiBold.ttf');
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 45px;
+    padding: 0px 15px;
+    border-radius: 5px;
+    background-color: #0026AB;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.button:hover {
+    opacity: 0.9;
+    transition: 0.5s ease;
+}
+
+@media (max-width:699px) {
+    .button {
+        height: 45px;
+        font-size: 16px;
+    }
+
+
+}

@@ -1,0 +1,274 @@
+.home-sec1 {
+    background-color: #0026AB;
+    color: white;
+    margin-top: -2px;
+    padding-top: 80px;
+}
+
+.wavy-div1 {
+    margin-top: -5px;
+    display: block;
+    position: relative;
+    top: 0px;
+    height: 170px;
+    width: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1270 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="%230026AB" d="M 0 50 C 258.40000000000003 50 387.59999999999997 110 646 110 L 646 110 L 646 0 L 0 0 Z" stroke-width="0"></path> <path fill="%230026AB" d="M 645 110 C 895 110 1020 27 1270 27 L 1270 27 L 1270 0 L 645 0 Z" stroke-width="0"></path> </svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+
+}
+
+
+.home-sec1-heading {
+    font-size: 40px;
+}
+
+.home-sec1-heading div {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    font-size: 40px;
+
+}
+
+.home-sec1-heading1 {
+    font-size: 28px;
+    margin-top: 30px;
+    line-height: 40px;
+}
+
+.home-sec1-subHeading {
+    font-size: 24px;
+    margin-top: 30px;
+}
+
+.home-sec1-semiCircle {
+    width: 326px;
+    height: 155px;
+    background-color: white;
+    border-radius: 60px;
+    border-bottom-left-radius: 0px;
+    border: 5px solid #5B72C1;
+    margin-top: 80px;
+    color: #3A3A3A;
+    font-size: 18px;
+    padding: 20px 45px;
+    box-sizing: border-box;
+}
+
+.home-sec1-semiCircle span {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Home section 2  */
+.home-sec2 {
+    background-color: white;
+    color: black;
+    margin-top: -2px;
+    padding-top: 80px;
+}
+
+.wavy-div2 {
+    margin-top: -5px;
+    display: block;
+    position: relative;
+    top: 0px;
+    height: 170px;
+    width: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1270 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="%23ffffff" d="M 0 50 C 258.40000000000003 50 387.59999999999997 110 646 110 L 646 110 L 646 0 L 0 0 Z" stroke-width="0"></path> <path fill="%23ffffff" d="M 645 110 C 895 110 1020 27 1270 27 L 1270 27 L 1270 0 L 645 0 Z" stroke-width="0"></path> </svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #E5E9F7;
+}
+
+.home-sec2-heading {
+    font-size: 34px;
+    text-align: center;
+}
+
+.home-sec2-heading span {
+    font-size: 34px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-sec2-subHeading {
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.home-sec2-cards {
+    padding-top: 80px;
+}
+
+.home-sec2-card {
+    background-color: #FDFCF8;
+    border-radius: 10px;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: #585858;
+
+}
+
+.home-sec2-card img {
+    width: 40px;
+}
+
+.home-sec2-card-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+.home-sec2-card-text {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+/* Home section 2  */
+.home-sec3 {
+    background-color: #E5E9F7;
+    color: black;
+    margin-top: -2px;
+    padding-top: 80px;
+}
+
+.wavy-div3 {
+    margin-top: -5px;
+    display: block;
+    position: relative;
+    top: 0px;
+    height: 170px;
+    width: 100%;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1270 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="%23E5E9F7" d="M 0 50 C 258.40000000000003 50 387.59999999999997 110 646 110 L 646 110 L 646 0 L 0 0 Z" stroke-width="0"></path> <path fill="%23E5E9F7" d="M 645 110 C 895 110 1020 27 1270 27 L 1270 27 L 1270 0 L 645 0 Z" stroke-width="0"></path> </svg>');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #ffff;
+}
+
+.home-sec3-heading {
+    font-size: 34px;
+    text-align: center;
+}
+
+.home-sec3-heading span {
+    font-size: 34px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.home-sec3-subHeading {
+    font-size: 28px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.home-sec3-cards {
+    padding-top: 80px;
+}
+
+.home-sec3-card {
+    background-color: #FDFCF8;
+    border-radius: 10px;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    color: #585858;
+
+}
+
+.home-sec3-card img {
+    width: 40px;
+}
+
+.home-sec3-card-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+.home-sec3-card-text {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+/* home section 4  */
+.home-sec4 {
+    background-color: white;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+
+.home-sec4-heading {
+    color: #3A3A3A;
+    font-size: 34px;
+}
+
+.home-sec4-heading span {
+    font-weight: bold;
+    font-size: 34px;
+    text-decoration: none;
+
+}
+
+.home-sec4-subHeading {
+    color: #3A3A3A;
+    font-size: 28px;
+    margin: 20px 0px;
+}
+
+.home-sec4-description {
+    color: #585858;
+    padding-right: 25%;
+    margin: 30px 0px;
+}
+
+.home-sec4-right {
+    text-align: right;
+    margin-right: 5%;
+}
+
+.home-sec4-img {
+    width: 514px;
+    max-width: 100%;
+}
+
+@media screen and (max-width:699px) {
+    .home-sec1-heading {
+        font-size: 34px;
+        text-align: center;
+    }
+
+    .home-sec1-heading div {
+        font-size: 34px;
+    }
+
+    .home-sec1-heading1,
+    .home-sec1-subHeading,
+    .home-sec1-semiCircle,
+    .home-sec1-arrow {
+        display: none;
+    }
+
+    .home-sec1 {
+        padding-top: 20px;
+        z-index: 2;
+    }
+
+    .wavy-div1 {
+        /* margin-top: -10px; */
+        z-index: -1;
+    }
+
+    .home-sec4-description {
+        padding-right: 0%;
+    }
+
+    .home-sec4-right {
+        margin-right: 0%;
+    }
+
+}

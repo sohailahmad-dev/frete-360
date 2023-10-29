@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.navBar {
+    background-color: #0026AB;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 7%;
+    height: 70px;
+}
+
+.logo-nb {
+    height: 40px;
+    cursor: pointer;
+}
+
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.link-nb {
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.link-nb:hover {
+    transition: 0.2s ease;
+    border-bottom: 2px solid white;
+}
+
+
+.link-nb1 {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.link-nb1:hover {
+    transition: 0.2s ease;
+    border-bottom: 2px solid white;
+}
+
+
+.icon {
+    display: none;
+}
+
+
+
+
+@media screen and (max-width:950px) {
+
+    .navBar {
+        height: 63px;
+    }
+
+    .logo-nb {
+        height: 30px;
+        cursor: pointer;
+    }
+
+    .navLinks {
+        flex-direction: column;
+        align-items: flex-start;
+        position: fixed;
+        z-index: 88;
+        top: 60px;
+        right: -300px;
+        width: 280px;
+        height: calc(100vh - 60px);
+        background-color: #0026AB;
+        transition: 1s ease;
+        padding-left: 30px;
+        padding-top: 30px;
+    }
+
+    .active {
+        right: 0px;
+    }
+
+
+    .link {
+        line-height: 50px;
+        color: white;
+    }
+
+    .icon {
+        display: block;
+    }
+
+    .GBPLinks-style {
+        flex-direction: column;
+    }
+}
