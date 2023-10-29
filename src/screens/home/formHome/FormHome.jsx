@@ -10,6 +10,7 @@ import Btn from '../../../components/btn/Btn'
 import CheckBox from '../../../components/checkBox/CheckBox';
 import InputField from '../../../components/inputField/InputField';
 import photo from '../../../assets/imgs/photo.png'
+import tick from '../../../assets/imgs/tick.png'
 
 export default function FormHome() {
     let [dataObj, setDataObj] = useState({})
@@ -62,15 +63,31 @@ export default function FormHome() {
     const moveBackStep2 = () => {
         setCurrentStep(2)
     }
+
+    const moveBackStep3 = () => {
+        setCurrentStep(3)
+    }
+
+    const submitData = () => {
+
+    }
     return (
         <div className='home-form-parent'>
             <div className="home-form-navigator">
                 <div className='home-form-navigator-line' />
                 <div className="home-form-circles">
-                    <div className="home-form-circle">1</div>
-                    <div className="home-form-circle">2</div>
-                    <div className="home-form-circle">3</div>
-                    <div className="home-form-circle">4</div>
+                    <div className={currentStep === 1 ? "current-circle" : "home-form-circle"}>
+                        {currentStep > 1 ? <img src={tick} alt='tick' /> : "1"}
+                    </div>
+                    <div className={currentStep === 2 ? "current-circle" : "home-form-circle"}>
+                        {currentStep > 2 ? <img src={tick} alt='tick' /> : "2"}
+                    </div>
+                    <div className={currentStep === 3 ? "current-circle" : "home-form-circle"}>
+                        {currentStep > 3 ? <img src={tick} alt='tick' /> : "3"}
+                    </div>
+                    <div className={currentStep === 4 ? "current-circle" : "home-form-circle"}>
+                        {currentStep > 4 ? <img src={tick} alt='tick' /> : "4"}
+                    </div>
                 </div>
             </div>
             <div className='home-form'>
@@ -254,11 +271,11 @@ export default function FormHome() {
                         <div style={{ display: 'flex', gap: '20px', marginBottom: "15px" }}>
                             <Btn
                                 label='Voltar'
-                                onClick={moveBackStep2}
+                                onClick={moveBackStep3}
                                 style={{ width: '100%', height: '45px', background: 'white', border: '2px solid #0026AB', color: '#0026AB' }} />
                             <Btn
                                 label='Próximo'
-                                onClick={moveToStep4}
+                                onClick={submitData}
                                 style={{ width: '100%', height: '45px' }} />
                         </div>
                     </Grid>

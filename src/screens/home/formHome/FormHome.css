@@ -16,6 +16,19 @@
     margin-top: -16px;
 }
 
+.current-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    z-index: 2;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #0026AB;
+    border: 2px solid white;
+}
+
 .home-form-circle {
     width: 32px;
     height: 32px;
@@ -29,12 +42,17 @@
     border: 2px solid white
 }
 
+.home-form-circle img {
+    width: 50%;
+    height: 50%;
+}
+
 /* .home-form-circle-active {} */
 
 .home-form {
     min-height: 300px;
     width: 100%;
-    background-color: #DADADA;
+    background-color: #ffff;
     border-radius: 10px;
     margin-top: 20px;
     padding: 20px 12%;
