@@ -12,132 +12,132 @@ import InputField from '../../../components/inputField/InputField';
 import photo from '../../../assets/imgs/photo.png';
 import tick from '../../../assets/imgs/tick.png';
 import { createOrder } from '../../../firebaseService';
-import {  collection, getDocs, where, query } from "firebase/firestore"; // Import query and where
+import { collection, getDocs, where, query } from "firebase/firestore"; // Import query and where
 import { db } from '../../../firebase';
 
 
 export default function FormHome() {
-    const [dataObj, setDataObj] = useState({});
-    const [currentStep, setCurrentStep] = useState(1);
-    const options = ['1st', '2nd', '3rd'];
-    const [items, setItems] = useState([{ description: '', quantity: '' }]);
-    const [moreDetailInformation, setMoreDetailInformation] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
-    const [loading, setLoading] = useState(false);
-  
-    const addItem = () => {
-      setItems([...items, { description: '', quantity: '' }]);
+  const [dataObj, setDataObj] = useState({});
+  const [currentStep, setCurrentStep] = useState(1);
+  const options = ['1st', '2nd', '3rd'];
+  const [items, setItems] = useState([{ description: '', quantity: '' }]);
+  const [moreDetailInformation, setMoreDetailInformation] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const addItem = () => {
+    setItems([...items, { description: '', quantity: '' }]);
+  }
+
+  const addValue = (key, value) => {
+    dataObj[key] = value.toString();
+    setDataObj({ ...dataObj });
+  }
+
+  const moveToStep2 = () => {
+    setCurrentStep(2);
+  }
+
+  const moveToStep3 = () => {
+    setCurrentStep(3);
+  }
+
+  const moveToStep4 = () => {
+    setCurrentStep(4);
+  }
+
+  const moveBackStep1 = () => {
+    setCurrentStep(1);
+  }
+
+  const moveBackStep2 = () => {
+    setCurrentStep(2);
+  }
+
+  const moveBackStep3 = () => {
+    setCurrentStep(3);
+  }
+
+  const submitData = async () => {
+    setLoading(true);
+
+    const generateRandomID = () => {
+      // Generate a random 8-digit ID
+      const min = 10000000;
+      const max = 99999999;
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+
+    const isIDUnique = async (id) => {
+      // Check if the generated ID exists in the "orders" collection
+      const orderCollection = collection(db, 'orders');
+      const q = query(orderCollection, where('orderID', '==', id)); // Use "query" here
+      const querySnapshot = await getDocs(q); // Use "q" here
+      return querySnapshot.empty; // Returns true if the ID is unique
+    };
+
+    const generateUniqueID = async () => {
+      let id;
+      do {
+        id = generateRandomID();
+      } while (!(await isIDUnique(id)));
+      return id;
+    };
+
+    // Generate a unique random 8-digit ID
+    const orderID = await generateUniqueID();
+
+    const step1Data = {
+      originState: dataObj.originState,
+      originCity: dataObj.originCity,
+      originHouseOrApartment: dataObj.originHouseOrApartment,
+      destinationState: dataObj.destinationState,
+      destinationCity: dataObj.destinationCity,
+      destinationHouseOrApartment: dataObj.destinationHouseOrApartment,
+      dateOfChange: dataObj.dateOfChange,
+    };
+
+    const step2Data = {
+      preferedTimeForMoving: dataObj.preferedTimeForMoving,
+      restrictionOrFees: dataObj.restrictionOrFees,
+      needMovingCompany: dataObj.needMovingCompany,
+      disassembleOrAssemble: dataObj.disassembleOrAssemble,
+      isDateFlexible: dataObj.isDateFlexible,
+    };
+
+    const step3Data = {
+      items,
+      moreDetailInformation,
+    };
+
+    const step4Data = {
+      name,
+      email,
+      phone,
+    };
+
+    const formData = {
+      step1Data,
+      step2Data,
+      step3Data,
+      step4Data,
+      orderID,
+    };
+
+    try {
+      await createOrder(formData);
+
+      setLoading(false);
+
+      // Handle any other actions or feedback (e.g., show a success message)
+    } catch (error) {
+      // Handle the error (e.g., show an error message)
+      setLoading(false);
     }
-  
-    const addValue = (key, value) => {
-      dataObj[key] = value.toString();
-      setDataObj({ ...dataObj });
-    }
-  
-    const moveToStep2 = () => {
-      setCurrentStep(2);
-    }
-  
-    const moveToStep3 = () => {
-      setCurrentStep(3);
-    }
-  
-    const moveToStep4 = () => {
-      setCurrentStep(4);
-    }
-  
-    const moveBackStep1 = () => {
-      setCurrentStep(1);
-    }
-  
-    const moveBackStep2 = () => {
-      setCurrentStep(2);
-    }
-  
-    const moveBackStep3 = () => {
-      setCurrentStep(3);
-    }
-  
-    const submitData = async () => {
-        setLoading(true);
-      
-        const generateRandomID = () => {
-          // Generate a random 8-digit ID
-          const min = 10000000;
-          const max = 99999999;
-          return Math.floor(Math.random() * (max - min + 1)) + min;
-        };
-      
-        const isIDUnique = async (id) => {
-          // Check if the generated ID exists in the "orders" collection
-          const orderCollection = collection(db, 'orders');
-          const q = query(orderCollection, where('orderID', '==', id)); // Use "query" here
-          const querySnapshot = await getDocs(q); // Use "q" here
-          return querySnapshot.empty; // Returns true if the ID is unique
-        };
-      
-        const generateUniqueID = async () => {
-          let id;
-          do {
-            id = generateRandomID();
-          } while (!(await isIDUnique(id)));
-          return id;
-        };
-      
-        // Generate a unique random 8-digit ID
-        const orderID = await generateUniqueID();
-      
-        const step1Data = {
-          originState: dataObj.originState,
-          originCity: dataObj.originCity,
-          originHouseOrApartment: dataObj.originHouseOrApartment,
-          destinationState: dataObj.destinationState,
-          destinationCity: dataObj.destinationCity,
-          destinationHouseOrApartment: dataObj.destinationHouseOrApartment,
-          dateOfChange: dataObj.dateOfChange,
-        };
-      
-        const step2Data = {
-          preferedTimeForMoving: dataObj.preferedTimeForMoving,
-          restrictionOrFees: dataObj.restrictionOrFees,
-          needMovingCompany: dataObj.needMovingCompany,
-          disassembleOrAssemble: dataObj.disassembleOrAssemble,
-          isDateFlexible: dataObj.isDateFlexible,
-        };
-      
-        const step3Data = {
-          items,
-          moreDetailInformation,
-        };
-      
-        const step4Data = {
-          name,
-          email,
-          phone,
-        };
-      
-        const formData = {
-          step1Data,
-          step2Data,
-          step3Data,
-          step4Data,
-          orderID,
-        };
-      
-        try {
-          await createOrder(formData);
-      
-          setLoading(false);
-      
-          // Handle any other actions or feedback (e.g., show a success message)
-        } catch (error) {
-          // Handle the error (e.g., show an error message)
-          setLoading(false);
-        }
-      };
-  
+  };
+
 
   return (
     <div className="home-form-parent">
@@ -252,13 +252,11 @@ export default function FormHome() {
                 defaultValue={dataObj?.restrictionOrFees}
                 onChange={(val) => addValue('restrictionOrFees', val)}
                 label="Há alguma restrição ou taxa para transitar ou estacionar em frente a um dos endereços?"
-                showQual={true}
               />
               <CheckBox
                 defaultValue={dataObj?.needMovingCompany}
                 onChange={(val) => addValue('needMovingCompany', val)}
                 label="Você precisa que a empresa de mudanças embale algum item para você?"
-                showQual={true}
               />
               <CheckBox
                 defaultValue={dataObj?.disassembleOrAssemble}
@@ -350,7 +348,7 @@ export default function FormHome() {
                 <div className="form-heading">Provide your contact information:</div>
               </div>
               <InputField value={name} onChange={(e) => setName(e.target.value)} placeholder="Name:" />
-              <InputField value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Email:" />
+              <InputField value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email:" />
               <InputField value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone:" />
               <div className="upload-photo-box">
                 <img src={photo} alt="photo" className="upload-photo" />
