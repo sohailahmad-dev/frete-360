@@ -31,113 +31,124 @@ export default function FormHome() {
     setItems([...items, { description: '', quantity: '' }]);
   }
 
-  const addValue = (key, value) => {
-    dataObj[key] = value.toString();
-    setDataObj({ ...dataObj });
-  }
-
-  const moveToStep2 = () => {
-    setCurrentStep(2);
-  }
-
-  const moveToStep3 = () => {
-    setCurrentStep(3);
-  }
-
-  const moveToStep4 = () => {
-    setCurrentStep(4);
-  }
-
-  const moveBackStep1 = () => {
-    setCurrentStep(1);
-  }
-
-  const moveBackStep2 = () => {
-    setCurrentStep(2);
-  }
-
-  const moveBackStep3 = () => {
-    setCurrentStep(3);
-  }
-
-  const submitData = async () => {
-    setLoading(true);
-
-    const generateRandomID = () => {
-      // Generate a random 8-digit ID
-      const min = 10000000;
-      const max = 99999999;
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    };
-
-    const isIDUnique = async (id) => {
-      // Check if the generated ID exists in the "orders" collection
-      const orderCollection = collection(db, 'orders');
-      const q = query(orderCollection, where('orderID', '==', id)); // Use "query" here
-      const querySnapshot = await getDocs(q); // Use "q" here
-      return querySnapshot.empty; // Returns true if the ID is unique
-    };
-
-    const generateUniqueID = async () => {
-      let id;
-      do {
-        id = generateRandomID();
-      } while (!(await isIDUnique(id)));
-      return id;
-    };
-
-    // Generate a unique random 8-digit ID
-    const orderID = await generateUniqueID();
-
-    const step1Data = {
-      originState: dataObj.originState,
-      originCity: dataObj.originCity,
-      originHouseOrApartment: dataObj.originHouseOrApartment,
-      destinationState: dataObj.destinationState,
-      destinationCity: dataObj.destinationCity,
-      destinationHouseOrApartment: dataObj.destinationHouseOrApartment,
-      dateOfChange: dataObj.dateOfChange,
-    };
-
-    const step2Data = {
-      preferedTimeForMoving: dataObj.preferedTimeForMoving,
-      restrictionOrFees: dataObj.restrictionOrFees,
-      needMovingCompany: dataObj.needMovingCompany,
-      disassembleOrAssemble: dataObj.disassembleOrAssemble,
-      isDateFlexible: dataObj.isDateFlexible,
-    };
-
-    const step3Data = {
-      items,
-      moreDetailInformation,
-    };
-
-    const step4Data = {
-      name,
-      email,
-      phone,
-    };
-
-    const formData = {
-      step1Data,
-      step2Data,
-      step3Data,
-      step4Data,
-      orderID,
-    };
-
-    try {
-      await createOrder(formData);
-
-      setLoading(false);
-
-      // Handle any other actions or feedback (e.g., show a success message)
-    } catch (error) {
-      // Handle the error (e.g., show an error message)
-      setLoading(false);
+    const addValue = (key, value) => {
+      dataObj[key] = value.toString();
+      setDataObj({ ...dataObj });
     }
-  };
+  
+    const moveToStep2 = () => {
+      setCurrentStep(2);
+    }
+  
+    const moveToStep3 = () => {
+      setCurrentStep(3);
+    }
+  
+    const moveToStep4 = () => {
+      setCurrentStep(4);
+    }
+  
+    const moveBackStep1 = () => {
+      setCurrentStep(1);
+    }
+  
+    const moveBackStep2 = () => {
+      setCurrentStep(2);
+    }
+  
+    const moveBackStep3 = () => {
+      setCurrentStep(3);
+    }
+  
+    const resetState = () => {
+      setDataObj({});
+      setCurrentStep(1);
+      setItems([{ description: '', quantity: '' }]);
+      setMoreDetailInformation('');
+      setName('');
+      setEmail('');
+      setPhone('');
+    };
 
+
+    const submitData = async () => {
+        setLoading(true);
+      
+        const generateRandomID = () => {
+          // Generate a random 8-digit ID
+          const min = 10000000;
+          const max = 99999999;
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        };
+      
+        const isIDUnique = async (id) => {
+          // Check if the generated ID exists in the "orders" collection
+          const orderCollection = collection(db, 'orders');
+          const q = query(orderCollection, where('orderID', '==', id)); // Use "query" here
+          const querySnapshot = await getDocs(q); // Use "q" here
+          return querySnapshot.empty; // Returns true if the ID is unique
+        };
+      
+        const generateUniqueID = async () => {
+          let id;
+          do {
+            id = generateRandomID();
+          } while (!(await isIDUnique(id)));
+          return id;
+        };
+      
+        // Generate a unique random 8-digit ID
+        const orderID = await generateUniqueID();
+      
+        const step1Data = {
+          originState: dataObj.originState,
+          originCity: dataObj.originCity,
+          originHouseOrApartment: dataObj.originHouseOrApartment,
+          destinationState: dataObj.destinationState,
+          destinationCity: dataObj.destinationCity,
+          destinationHouseOrApartment: dataObj.destinationHouseOrApartment,
+          dateOfChange: dataObj.dateOfChange,
+        };
+      
+        const step2Data = {
+          preferedTimeForMoving: dataObj.preferedTimeForMoving,
+          restrictionOrFees: dataObj.restrictionOrFees,
+          needMovingCompany: dataObj.needMovingCompany,
+          disassembleOrAssemble: dataObj.disassembleOrAssemble,
+          isDateFlexible: dataObj.isDateFlexible,
+        };
+      
+        const step3Data = {
+          items,
+          moreDetailInformation,
+        };
+      
+        const step4Data = {
+          name,
+          email,
+          phone,
+        };
+      
+        const formData = {
+          step1Data,
+          step2Data,
+          step3Data,
+          step4Data,
+          orderID,
+        };
+      
+        try {
+          await createOrder(formData);
+      
+          setLoading(false);
+          resetState();
+          // Handle any other actions or feedback (e.g., show a success message)
+        } catch (error) {
+          // Handle the error (e.g., show an error message)
+          setLoading(false);
+        }
+      };
+  
 
   return (
     <div className="home-form-parent">
@@ -366,7 +377,7 @@ export default function FormHome() {
                   style={{ width: '100%', height: '45px', background: 'white', border: '2px solid #0026AB', color: '#0026AB' }}
                 />
                 <Btn
-                  label="Submit"
+                  label={loading ? 'loading...' : 'Finalizar'}
                   onClick={submitData}
                   style={{ width: '100%', height: '45px' }}
                 />
