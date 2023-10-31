@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import './InputField.css'
-import hideIcon from '../../assets/img/hideIcon.png'
 
-export default function InputField({ icon, placeholder, isPassword, onChange, value }) {
+export default function InputField({ placeholder, onChange, value, style }) {
 
 
     return (
-        <div className='inputBox' >
-
+        <div className='inputBox' style={style} >
 
             <input onChange={onChange} value={value} placeholder={placeholder} />
 

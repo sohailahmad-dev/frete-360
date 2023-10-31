@@ -45,6 +45,7 @@ export default function NavBar({ active }) {
                         >Empresas</div>
                         <div
                             className="link-nb"
+                            onClick={() => navigate('/wishlist')}
                         >Lista de pedidos</div>
                         <div
                             className="link-nb"

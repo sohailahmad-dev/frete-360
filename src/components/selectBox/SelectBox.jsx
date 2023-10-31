@@ -19,7 +19,7 @@ export default function SelectBox({ options, onChange, label }) {
                     id="demo-simple-select"
                     value={value}
                     label="Select"
-                    sx={{ background: 'white', border: '1px solid gray' }}
+                    sx={{ background: 'white' }}
                     onChange={handleChange}
                 >
                     {options && options.length > 0 &&

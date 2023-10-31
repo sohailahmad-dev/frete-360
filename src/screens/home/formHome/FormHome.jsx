@@ -18,7 +18,7 @@ export default function FormHome() {
     let [isStep2Error, setIsStep2Error] = useState(false)
     let [isStep3Error, setIsStep3Error] = useState(false)
     let [isStep4Error, setIsStep4Error] = useState(false)
-    let [currentStep, setCurrentStep] = useState(1)
+    let [currentStep, setCurrentStep] = useState(2)
     const options = ['1st', '2nd', '3rd'];
 
 
@@ -69,7 +69,7 @@ export default function FormHome() {
     }
 
     const submitData = () => {
-
+        console.log(dataObj)
     }
     return (
         <div className='home-form-parent'>
@@ -144,7 +144,7 @@ export default function FormHome() {
                                 <DatePicker
                                     label="dd/mm/aa"
                                     onChange={(val) => addValue('dateOfChange', val?.$d)}
-                                    sx={{ width: '100%', background: 'white', border: '1px solid gray' }}
+                                    sx={{ width: '100%', background: 'white' }}
                                 />
                             </DemoContainer>
                         </LocalizationProvider>
@@ -170,15 +170,16 @@ export default function FormHome() {
                         <CheckBox
                             defaultValue={dataObj?.preferedTimeForMoving}
                             onChange={(val) => addValue('preferedTimeForMoving', val)}
+                            onTime={(val) => addValue('preferedTime', val)}
                             label='Existe algum horário preferencial para a mudança?' showQual={true} />
                         <CheckBox
                             defaultValue={dataObj?.restrictionOrFees}
                             onChange={(val) => addValue('restrictionOrFees', val)}
-                            label='Há alguma restrição ou taxa para transitar ou estacionar em frente a um dos endereços?' showQual={true} />
+                            label='Há alguma restrição ou taxa para transitar ou estacionar em frente a um dos endereços?' />
                         <CheckBox
                             defaultValue={dataObj?.needMovingCompany}
                             onChange={(val) => addValue('needMovingCompany', val)}
-                            label='Você precisa que a empresa de mudanças embale algum item para você?' showQual={true} />
+                            label='Você precisa que a empresa de mudanças embale algum item para você?' />
                         <CheckBox
                             defaultValue={dataObj?.disassembleOrAssemble}
                             onChange={(val) => addValue('disassembleOrAssemble', val)}

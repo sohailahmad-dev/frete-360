@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import './CheckBox.css'
+import InputField from '../inputField/InputField';
 
-export default function CheckBox({ label, onChange, showQual, defaulValue }) {
+
+
+export default function CheckBox({ label, onChange, showQual, defaulValue, onTime }) {
 
     let [selected, setSelected] = useState('');
 
@@ -10,9 +13,14 @@ export default function CheckBox({ label, onChange, showQual, defaulValue }) {
         onChange(val)
     }
 
+    const handleTime = (val) => {
+        onTime(val)
+    }
+
     useEffect(() => {
         setSelected(defaulValue)
     }, [])
+
 
     return (
         <div className='main-checkBox'>
@@ -32,7 +40,11 @@ export default function CheckBox({ label, onChange, showQual, defaulValue }) {
                         <div>Não</div>
                     </div>
                 </div>
-                {showQual && <div className='checkBox-qual'>Qual:</div>}
+                {showQual && selected &&
+                    <InputField placeholder='Insira a hora' onChange={(e) => handleTime(e.target.value)}
+                        style={{ margin: '8px' }}
+                    />
+                }
             </div>
         </div>
     )
