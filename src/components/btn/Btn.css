@@ -17,6 +17,7 @@
     border: none;
     font-size: 17px;
     font-weight: bold;
+    gap: 10px;
 }
 
 .button:hover {

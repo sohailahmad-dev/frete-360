@@ -8,7 +8,7 @@
 
 .wishlist-modal-content {
     background-color: white;
-    width: 60%;
+    width: 50%;
     min-height: 500px;
     border-radius: 10px;
     padding: 3% 2%;
@@ -49,5 +49,56 @@
     color: #0026AB;
     font-size: 22px;
     font-weight: bold;
+}
 
+.wishlist-modal-subHeading {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.wishlist-modal-body div {
+    display: flex;
+    align-items: center;
+}
+
+.wishlist-text-heading {
+    font-size: 16px;
+    font-weight: 500;
+    width: 40%;
+    margin: 8px 0px;
+}
+
+.wishlist-text-heading1 {
+    font-size: 16px;
+    font-weight: 500;
+    width: 50%;
+    margin: 8px 0px;
+}
+
+.wishlist-text-heading2 {
+    font-size: 14px;
+    width: 70%;
+    margin: 8px 0px;
+    font-weight: bold;
+}
+
+.wishlist-text-content {
+    font-size: 16px;
+}
+
+.wishlist-text-content1 {
+    font-size: 14px;
+}
+
+.wishlist-text-content2 {
+    font-size: 14px;
+}
+
+.wishlist-modal-underline-item {
+    border-bottom: 1px solid #D6D6D6;
+}
+
+.wishlist-modal-underline-item2 {
+    border-bottom: 1px solid #787878;
+    padding: 5px 0px;
 }
