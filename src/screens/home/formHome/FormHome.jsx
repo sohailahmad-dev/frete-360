@@ -16,6 +16,7 @@ import { collection, getDocs, where, query } from "firebase/firestore"; // Impor
 import { db, storage } from "../../../firebase";
 import axios from "axios";
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import successImg from '../../../assets/imgs/successImg.png'
 
 export default function FormHome() {
   const [dataObj, setDataObj] = useState({});
@@ -31,7 +32,7 @@ export default function FormHome() {
   const [cities, setCities] = useState([]);
   const [selectedEstado, setSelectedEstado] = useState("");
   const [imageFile, setImageFile] = useState(null);
-const [imageURL, setImageURL] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
 
   const imageInputRef = useRef();
   const estadoOptions = [
@@ -126,7 +127,7 @@ const [imageURL, setImageURL] = useState(null);
     const fileInput = imageInputRef.current;
     if (fileInput && fileInput.files && fileInput.files.length > 0) {
       const selectedImage = fileInput.files[0];
-  
+
       // Upload the selected image to Firebase Storage
       const storageRef = ref(storage, `images/${selectedImage.name}`);
       uploadBytes(storageRef, selectedImage).then((snapshot) => {
@@ -137,9 +138,9 @@ const [imageURL, setImageURL] = useState(null);
       });
     }
   };
-  
 
-  
+
+
 
   const resetState = () => {
     setDataObj({});
@@ -153,7 +154,7 @@ const [imageURL, setImageURL] = useState(null);
 
 
 
-  
+
 
   const submitData = async () => {
     setLoading(true);
@@ -223,10 +224,10 @@ const [imageURL, setImageURL] = useState(null);
     };
 
     try {
-      
-      
+
+
       await createOrder(formData);
-    
+
       setLoading(false);
       resetState();
       // Handle any other actions or feedback (e.g., show a success message)
@@ -353,7 +354,7 @@ const [imageURL, setImageURL] = useState(null);
                   <DatePicker
                     label="dd/mm/aa"
                     onChange={(val) => {
-                        addValue("dateOfChange", val.$d);
+                      addValue("dateOfChange", val.$d);
                     }}
                     sx={{
                       width: "100%",
@@ -531,7 +532,7 @@ const [imageURL, setImageURL] = useState(null);
                 placeholder="Phone:"
               />
               <div className="upload-photo-box">
-              <img
+                <img
                   src={imageURL || photo} // Use the previewImage state for the image source
                   alt="photo"
                   className="upload-photo"
@@ -579,7 +580,30 @@ const [imageURL, setImageURL] = useState(null);
             </Grid>
           </Grid>
         )}
+        {/* Step 5  */}
+        {currentStep === 5 && (
+          <Grid container spacing={2}>
+            {/* Step 5 content */}
+            <Grid item xs={12}>
+              <div style={{ textAlign: "center" }}>
+                <div className="form-success-heading">
+                  Pedido realizado <br /> com sucesso!
+                </div>
+                <div className="form-success-content">
+                  O número do seu pedido é
+                  <div>2830945</div>
+                </div>
+                <img className="form-success-img" src={successImg} alt="success-img" />
+                <Btn
+                  label='Voltar ao inicio'
+                  onClick={() => { }}
+                  style={{ width: "100%", height: "45px" }}
+                />
+              </div>
+            </Grid>
+          </Grid>
+        )}
       </div>
-    </div>
+    </div >
   );
 }
