@@ -12,22 +12,34 @@ import arrow from '../../assets/imgs/arrow.png'
 import calendarIcon from '../../assets/imgs/calendarIcon.png'
 import eyeIcon from '../../assets/imgs/eyeIcon.png'
 import Btn from '../../components/btn/Btn'
-import { getPlaceOrder } from '../../firebaseService'
+import { getOrderById, getPlaceOrder } from '../../firebaseService'
 import WishlistModal from './wishlistModal/WishlistModal'
 
 
 export default function Wishlist() {
     const [orders, setOrders] = useState();
-    let [openModal, setOpenModal] = useState(false)
+    const [openModal, setOpenModal] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState(null); // Store the selected order
     useEffect(() => {
-        getPlaceOrder().then((data) => setOrders(data))
-    }, [])
+        getPlaceOrder().then((data) => setOrders(data));
+    }, []);
+
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         const day = date.getDate();
         const month = date.getMonth() + 1; // Months are 0-based, so add 1
         const year = date.getFullYear();
         return `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+    };
+
+    // Create a function to fetch a single order by ID
+    const fetchOrderDetails = async (orderId) => {
+        try {
+            const order = await getOrderById(orderId);
+            setSelectedOrder(order);
+        } catch (error) {
+            console.error('Error fetching order details:', error);
+        }
     };
 
     return (
@@ -128,9 +140,14 @@ export default function Wishlist() {
                                                         1/10
                                                     </div>
                                                     <div style={{ display: 'flex', gap: '10px' }}>
-                                                        <Btn label='Visualizer'
-                                                            onClick={() => setOpenModal(true)}
-                                                            style={{ background: "#00B812", width: '153px' }} />
+                                                    <Btn
+                                        label="Visualizer"
+                                        onClick={() => {
+                                            setOpenModal(true);
+                                            fetchOrderDetails(o?.id); // Fetch the order details when the button is clicked
+                                        }}
+                                        style={{ background: '#00B812', width: '153px' }}
+                                    />
                                                         <div className='fav-btn'>
                                                             <GradeIcon />
                                                         </div>
@@ -167,9 +184,14 @@ export default function Wishlist() {
                                             </div>
                                         </div>
                                         <div style={{ display: 'flex', gap: '5px' }}>
-                                            <Btn
-                                                onClick={() => setOpenModal(true)}
-                                                label='Visualizer' style={{ background: "#00B812", width: '100%', height: '38px' }} />
+                                        <Btn
+                                        label="Visualizer"
+                                        onClick={() => {
+                                            setOpenModal(true);
+                                            fetchOrderDetails(o.id); // Fetch the order details when the button is clicked
+                                        }}
+                                        style={{ background: '#00B812', width: '153px' }}
+                                    />
                                             <div className='fav-btn1'>
                                                 <GradeIcon />
                                             </div>
@@ -182,7 +204,16 @@ export default function Wishlist() {
                     })}
                 </div>
             </div>
-            <WishlistModal open={openModal} onClose={() => setOpenModal(false)} />
+            {selectedOrder && ( 
+                <WishlistModal
+                    open={openModal}
+                    onClose={() => {
+                        setOpenModal(false);
+                        setSelectedOrder(null);
+                    }}
+                    order={selectedOrder} 
+                />
+            )}
             <Footer />
         </>
     )

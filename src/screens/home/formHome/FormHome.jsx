@@ -33,7 +33,8 @@ export default function FormHome() {
   const [selectedEstado, setSelectedEstado] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
-
+  const [displayOrderId, setDisplayOrderId] = useState();
+  const [changeTime , setChangeTime] = useState();
   const imageInputRef = useRef();
   const estadoOptions = [
     { name: "Acre", code: "AC" },
@@ -184,7 +185,7 @@ export default function FormHome() {
 
     // Generate a unique random 8-digit ID
     const orderID = await generateUniqueID();
-
+    setDisplayOrderId(orderID)
     const step1Data = {
       originState: dataObj.originState,
       originCity: dataObj.originCity,
@@ -197,6 +198,7 @@ export default function FormHome() {
 
     const step2Data = {
       preferedTimeForMoving: dataObj.preferedTimeForMoving,
+       changeTime,
       restrictionOrFees: dataObj.restrictionOrFees,
       needMovingCompany: dataObj.needMovingCompany,
       disassembleOrAssemble: dataObj.disassembleOrAssemble,
@@ -225,17 +227,22 @@ export default function FormHome() {
 
     try {
 
-
+      console.log(formData)
       await createOrder(formData);
-
+      
       setLoading(false);
-      resetState();
+      setCurrentStep(5);
       // Handle any other actions or feedback (e.g., show a success message)
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
+
+  const backToForm = () => {
+    setCurrentStep(1)
+    resetState()
+  }
 
   return (
     <div className="home-form-parent">
@@ -387,6 +394,8 @@ export default function FormHome() {
                 onChange={(val) => addValue("preferedTimeForMoving", val)}
                 label="Existe algum horário preferencial para a mudança?"
                 showQual={true}
+                timeValue={changeTime}
+                channgeTimeHandle={(e) => setChangeTime(e.target.value)}
               />
               <CheckBox
                 defaultValue={dataObj?.restrictionOrFees}
@@ -591,12 +600,12 @@ export default function FormHome() {
                 </div>
                 <div className="form-success-content">
                   O número do seu pedido é
-                  <div>2830945</div>
+                  <div>{displayOrderId}</div>
                 </div>
                 <img className="form-success-img" src={successImg} alt="success-img" />
                 <Btn
                   label='Voltar ao inicio'
-                  onClick={() => { }}
+                  onClick={backToForm}
                   style={{ width: "100%", height: "45px" }}
                 />
               </div>
