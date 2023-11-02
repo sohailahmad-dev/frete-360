@@ -7,6 +7,8 @@
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 45px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-profile {
@@ -25,6 +27,8 @@
     font-weight: bold;
     display: flex;
     align-items: center;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-profile-name span {
@@ -72,6 +76,8 @@
     padding: 0px 20px;
     font-weight: bold;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-btn2 {
@@ -103,6 +109,8 @@
 .wishlist-heading1 {
     font-size: 28px;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-center img {
@@ -113,6 +121,14 @@
 .wishlist-data-headings {
     font-weight: bold;
     margin: 20px 0px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+    padding: 0px 30px;
+
+}
+
+.wishlist-data-headings div {
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-data-values {
@@ -142,6 +158,8 @@
 .wihlist-data-origin div span {
     font-weight: bold;
     font-size: 15px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wihlist-data-origin img {
@@ -154,6 +172,11 @@
     align-items: center;
     gap: 10px;
     font-weight: bold;
+}
+
+.wihlist-data-date div {
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wihlist-data-date img {
@@ -177,6 +200,8 @@
     padding: 5px 10px;
     font-weight: bold;
     gap: 5px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .views-eyeBox img {
@@ -257,6 +282,8 @@
     .wihlist-data-origin1 span {
         font-size: 12px;
         font-weight: bold;
+        font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
     }
 
     .wishlist-arrow {
@@ -280,6 +307,8 @@
 
     .wishlist-data-date1 div {
         font-size: 14px;
+        font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
     }
 
     .wishlist-data-date1 img {
@@ -308,6 +337,8 @@
         font-weight: bold;
         gap: 5px;
         font-size: 14px;
+        font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
     }
 
     .views-eyeBox1 img {

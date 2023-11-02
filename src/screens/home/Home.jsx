@@ -104,7 +104,7 @@ export default function Home() {
             <div className="home-sec3 content-padding">
                 <div className="home-sec3-heading">
                     Depoimentos de
-                    <span>quem usa a Frete Brasil</span>
+                    <span> quem usa a Frete Brasil</span>
                 </div>
                 <div className="home-sec3-subHeading">
                     Conheça a Frete Brasil é rápido, fácil e gratuito

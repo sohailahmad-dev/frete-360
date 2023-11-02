@@ -18,6 +18,8 @@
     font-size: 17px;
     font-weight: bold;
     gap: 10px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .button:hover {

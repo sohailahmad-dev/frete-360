@@ -29,7 +29,7 @@
     color: white;
     text-decoration: none;
     font-size: 40px;
-
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
 }
 
 .home-sec1-heading1 {
@@ -60,6 +60,7 @@
 .home-sec1-semiCircle span {
     font-weight: bold;
     text-decoration: none;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
 }
 
 /* Home section 2  */
@@ -92,6 +93,8 @@
     font-size: 34px;
     text-decoration: none;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .home-sec2-subHeading {
@@ -121,6 +124,8 @@
     font-size: 20px;
     font-weight: bold;
     margin: 10px 0px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .home-sec2-card-text {
@@ -158,6 +163,8 @@
     font-size: 34px;
     text-decoration: none;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .home-sec3-subHeading {
@@ -187,6 +194,8 @@
     font-size: 20px;
     font-weight: bold;
     margin: 10px 0px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .home-sec3-card-text {
@@ -211,6 +220,8 @@
     font-weight: bold;
     font-size: 34px;
     text-decoration: none;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 
 }
 

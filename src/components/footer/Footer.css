@@ -20,6 +20,8 @@
 .footer-logo-box div {
     font-size: 28px;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .footer-social {
@@ -46,6 +48,8 @@
 .footer-main-link {
     font-size: 24px;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .footer-link {
@@ -56,4 +60,65 @@
 .footer-link:hover {
     font-weight: bold;
     transition: 0.5s ease;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
+}
+
+.footer-items-mobile {
+    display: none;
+}
+
+.mobile-logo {
+    display: none;
+}
+
+@media screen and (max-width:699px) {
+    .footer-left-description {
+        padding-right: 10%;
+    }
+
+    .footer-items-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 40px;
+        border-bottom: 4px solid #A7BAFF;
+        margin: 20px 0px;
+    }
+
+    .selected-nav-item {
+        background-color: #001972;
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-item-mobile {
+        background-color: transparent;
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .selected-nav-item img,
+    .nav-item-mobile img {
+        width: 100%;
+    }
+
+    .footer-logo-box {
+        display: none;
+    }
+
+    .mobile-logo {
+        display: block;
+        width: 126px;
+    }
+
+
 }
