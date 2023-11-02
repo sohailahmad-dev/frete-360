@@ -45,6 +45,11 @@ export default function Home() {
                     <Grid item md={6} xs={12} >
                         <div className="home-sec1-right">
                             <FormHome />
+                            <div className="home-sec1-semiCircle1">
+
+                                Gostaria de ver a <span>lista de pedidos?</span>
+                                <Btn label='Login' style={{ backgroundColor: 'white', color: '#0026AB', fontSize: '17px', border: '2px solid #0026AB', height: '35px', width: "229px", marginTop: '25px' }} />
+                            </div>
                         </div>
                     </Grid>
                 </Grid>

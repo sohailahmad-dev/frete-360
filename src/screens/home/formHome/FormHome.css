@@ -156,4 +156,11 @@ textarea::placeholder {
     .form-success-content {
         font-size: 22px;
     }
+
+    .form-add-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        align-items: flex-start;
+    }
 }

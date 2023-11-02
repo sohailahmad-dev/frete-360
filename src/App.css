@@ -82,7 +82,7 @@
   font-family: 'Neue Helvetica Condensed BQ Regular';
   font-style: normal;
   font-weight: normal;
-  src: local('Neue Helvetica Condensed BQ Regular'), url('./neue-helvetica-bq-cufonfonts-webfont//NeueHelveticaCondensedBQRoman.woff') format('woff');
+  src: local('Helvetica Condensed BQ Regular'), url('./neue-helvetica-bq-cufonfonts-webfont//NeueHelveticaCondensedBQRoman.woff') format('woff');
 }
 
 @font-face {
