@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Wishlist.css'
 import NavBar from '../../components/navBar/NavBar'
 import Footer from '../../components/footer/Footer'
@@ -12,10 +12,22 @@ import arrow from '../../assets/imgs/arrow.png'
 import calendarIcon from '../../assets/imgs/calendarIcon.png'
 import eyeIcon from '../../assets/imgs/eyeIcon.png'
 import Btn from '../../components/btn/Btn'
+import { getPlaceOrder } from '../../firebaseService'
 
 
 export default function Wishlist() {
-    let data = [1, 2, 3, 4]
+    const [orders, setOrders] = useState();
+    useEffect(() => {
+        getPlaceOrder().then((data) => setOrders(data))
+    },[])
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const day = date.getDate();
+        const month = date.getMonth() + 1; // Months are 0-based, so add 1
+        const year = date.getFullYear();
+        return `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
+    };
+
     return (
         <>
             <NavBar />
@@ -74,18 +86,18 @@ export default function Wishlist() {
 
                         </Grid>
                     </div>
-                    {data.map((e) => {
+                    {orders && orders.map((o) => {
                         return (
-                            <div key={e} className="wishlist-data-values">
+                            <div key={o?.id} className="wishlist-data-values">
                                 <Grid container spacing={1}>
                                     <Grid item xs={1.25}>
-                                        <div className="wishlist-data-id">#12345</div>
+                                        <div className="wishlist-data-id">#{o?.orderID}</div>
                                     </Grid>
                                     <Grid item xs={2.75}>
                                         <div className="wihlist-data-origin">
                                             <div>
                                                 <span>De:</span>
-                                                Rio de janeiro / RJ
+                                                {o?.step1Data?.originCity} / {o?.step1Data?.originState}
                                             </div>
                                             <img src={arrow} alt="arrow" />
                                         </div>
@@ -94,7 +106,7 @@ export default function Wishlist() {
                                         <div className="wihlist-data-origin">
                                             <div>
                                                 <span>Para:</span>
-                                                Juazeiro / BA
+                                                {o?.step1Data?.destinationCity} / {o?.step1Data?.destinationState}
                                             </div>
                                         </div>
                                     </Grid>
@@ -102,7 +114,7 @@ export default function Wishlist() {
                                         <div className="wihlist-data-date">
                                             <img src={calendarIcon} alt="calendar" />
                                             <div>
-                                                15/06/2023
+                                            {formatDate(o?.step1Data?.dateOfChange)}
                                             </div>
                                         </div>
                                     </Grid>
