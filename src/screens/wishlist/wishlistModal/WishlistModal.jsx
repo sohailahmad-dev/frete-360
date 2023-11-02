@@ -5,16 +5,12 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Btn from '../../../components/btn/Btn';
 
-export default function WishlistModal({ open }) {
-    let [isOpen, setIsOpen] = useState(false)
+export default function WishlistModal({ open, onClose }) {
 
-    useEffect(() => {
-        setIsOpen(open)
-    }, [open])
 
     return (
         <div>
-            <Modal open={isOpen}>
+            <Modal open={open}>
                 <div className='wishlist-modal-style' >
                     <div className='wishlist-modal-content'>
                         <Grid container spacing={3}>
@@ -22,7 +18,7 @@ export default function WishlistModal({ open }) {
                                 <div className="wishlist-modal-header">
                                     <div className="wishlist-modal-heading">
                                         Detalhes do pedido
-                                        <div onClick={() => setIsOpen(false)}>
+                                        <div onClick={onClose}>
                                             <CancelIcon sx={{ fontSize: 40 }} />
                                         </div>
                                     </div>

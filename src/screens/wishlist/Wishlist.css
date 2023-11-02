@@ -194,9 +194,134 @@
     cursor: pointer;
 }
 
-@media screen and (max-width:1250px) {
+.mobile-card {
+    display: none;
+}
+
+@media screen and (max-width:1200px) {
     .wishlist-main {
-        padding: 5% 10%;
+        padding: 5%;
         padding-bottom: 15%;
+    }
+
+    .wishlist-data-headings {
+        display: none;
+    }
+
+    .wishlist-heading,
+    .wishlist-heading1 {
+        font-size: 26px;
+        font-weight: bold;
+        margin: 20px 0px;
+    }
+
+    .wishlist-search-outer {
+        padding-right: 0px;
+    }
+
+    .wishlist-btn1,
+    .wishlist-btn2 {
+        font-size: 16px;
+    }
+
+    .desktop-card {
+        display: none;
+    }
+
+    .mobile-card {
+        display: block;
+    }
+
+    .wishlist-data-values1 {
+        padding: 10px;
+        background: #FDFCF8;
+        border-radius: 10px;
+        box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.1), -1px -1px 10px rgba(0, 0, 0, 0.1);
+        padding-bottom: 20px;
+        margin: 15px 0px;
+        font-size: 14px;
+    }
+
+    .mobile-origin-des {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .wihlist-data-origin1 {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+
+    .wihlist-data-origin1 span {
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .wishlist-arrow {
+        width: 20px;
+    }
+
+    .mobile-card-center {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 15px 0px;
+    }
+
+    .wishlist-data-date1 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+        font-weight: bold;
+    }
+
+    .wishlist-data-date1 div {
+        font-size: 14px;
+    }
+
+    .wishlist-data-date1 img {
+        width: 15px;
+        height: 15px;
+    }
+
+    .wishlist-data-id1 {
+        font-size: 14px;
+    }
+
+    .wishlist-data-views1 {
+        margin-top: -10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .views-eyeBox1 {
+        border-radius: 10px;
+        background-color: #E6E6E6;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 5px 10px;
+        font-weight: bold;
+        gap: 5px;
+        font-size: 14px;
+    }
+
+    .views-eyeBox1 img {
+        width: 16px;
+    }
+
+    .fav-btn1 {
+        background-color: #F2F2F2;
+        height: 38px;
+        width: 61px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #E2E2E2;
+        cursor: pointer;
     }
 }

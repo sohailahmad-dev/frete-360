@@ -1,6 +1,6 @@
 .wishlist-modal-style {
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,6 @@
 .wishlist-modal-content {
     background-color: white;
     width: 50%;
-    min-height: 500px;
     border-radius: 10px;
     padding: 3% 2%;
 }
@@ -101,4 +100,20 @@
 .wishlist-modal-underline-item2 {
     border-bottom: 1px solid #787878;
     padding: 5px 0px;
+}
+
+@media screen and (max-width:699px) {
+    .wishlist-modal-style {
+        padding: 3%;
+        overflow-y: scroll;
+        padding-bottom: 10%;
+    }
+
+    .wishlist-modal-content {
+        background-color: white;
+        width: 100%;
+        border-radius: 10px;
+        padding: 3% 2%;
+        overflow-y: scroll;
+    }
 }

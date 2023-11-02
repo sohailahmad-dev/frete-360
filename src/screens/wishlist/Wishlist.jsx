@@ -13,13 +13,15 @@ import calendarIcon from '../../assets/imgs/calendarIcon.png'
 import eyeIcon from '../../assets/imgs/eyeIcon.png'
 import Btn from '../../components/btn/Btn'
 import { getPlaceOrder } from '../../firebaseService'
+import WishlistModal from './wishlistModal/WishlistModal'
 
 
 export default function Wishlist() {
     const [orders, setOrders] = useState();
+    let [openModal, setOpenModal] = useState(false)
     useEffect(() => {
         getPlaceOrder().then((data) => setOrders(data))
-    },[])
+    }, [])
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         const day = date.getDate();
@@ -44,7 +46,6 @@ export default function Wishlist() {
                                     </div>
                                     <div className="wishlist-profile-number">55 (48) 3524-8547</div>
                                 </div>
-
                             </div>
                         </Grid>
                         <Grid item md={6} xs={12}>
@@ -88,58 +89,100 @@ export default function Wishlist() {
                     </div>
                     {orders && orders.map((o) => {
                         return (
-                            <div key={o?.id} className="wishlist-data-values">
-                                <Grid container spacing={1}>
-                                    <Grid item xs={1.25}>
-                                        <div className="wishlist-data-id">#{o?.orderID}</div>
-                                    </Grid>
-                                    <Grid item xs={2.75}>
-                                        <div className="wihlist-data-origin">
-                                            <div>
+                            <div key={o?.id}>
+                                <div className="desktop-card">
+                                    <div className="wishlist-data-values">
+                                        <Grid container spacing={1}>
+                                            <Grid item xs={1.25}>
+                                                <div className="wishlist-data-id">#{o?.orderID}</div>
+                                            </Grid>
+                                            <Grid item xs={2.75}>
+                                                <div className="wihlist-data-origin">
+                                                    <div>
+                                                        <span>De:</span>
+                                                        {o?.step1Data?.originCity} / {o?.step1Data?.originState}
+                                                    </div>
+                                                    <img src={arrow} alt="arrow" />
+                                                </div>
+                                            </Grid>
+                                            <Grid item xs={2}>
+                                                <div className="wihlist-data-origin">
+                                                    <div>
+                                                        <span>Para:</span>
+                                                        {o?.step1Data?.destinationCity} / {o?.step1Data?.destinationState}
+                                                    </div>
+                                                </div>
+                                            </Grid>
+                                            <Grid item xs={1.75}>
+                                                <div className="wihlist-data-date">
+                                                    <img src={calendarIcon} alt="calendar" />
+                                                    <div>
+                                                        {formatDate(o?.step1Data?.dateOfChange)}
+                                                    </div>
+                                                </div>
+                                            </Grid>
+                                            <Grid item xs={4.25}>
+                                                <div className="wishlist-data-views">
+                                                    <div className="views-eyeBox">
+                                                        <img src={eyeIcon} alt="eyeIcon" />
+                                                        1/10
+                                                    </div>
+                                                    <div style={{ display: 'flex', gap: '10px' }}>
+                                                        <Btn label='Visualizer'
+                                                            onClick={() => setOpenModal(true)}
+                                                            style={{ background: "#00B812", width: '153px' }} />
+                                                        <div className='fav-btn'>
+                                                            <GradeIcon />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Grid>
+                                        </Grid>
+                                    </div>
+                                </div>
+                                <div className="mobile-card">
+                                    <div className="wishlist-data-values1">
+                                        <div className='mobile-origin-des'>
+                                            <div className="wihlist-data-origin1">
                                                 <span>De:</span>
                                                 {o?.step1Data?.originCity} / {o?.step1Data?.originState}
                                             </div>
-                                            <img src={arrow} alt="arrow" />
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={2}>
-                                        <div className="wihlist-data-origin">
-                                            <div>
+                                            <img src={arrow} alt="arrow" className='wishlist-arrow' />
+                                            <div className="wihlist-data-origin1">
                                                 <span>Para:</span>
                                                 {o?.step1Data?.destinationCity} / {o?.step1Data?.destinationState}
                                             </div>
                                         </div>
-                                    </Grid>
-                                    <Grid item xs={1.75}>
-                                        <div className="wihlist-data-date">
-                                            <img src={calendarIcon} alt="calendar" />
-                                            <div>
-                                            {formatDate(o?.step1Data?.dateOfChange)}
+                                        <div className="mobile-card-center">
+                                            <div className="wishlist-data-date1">
+                                                <img src={calendarIcon} alt="calendar" />
+                                                <div>
+                                                    {formatDate(o?.step1Data?.dateOfChange)}
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Grid>
-                                    <Grid item xs={4.25}>
-                                        <div className="wishlist-data-views">
-                                            <div className="views-eyeBox">
+                                            <div className="wishlist-data-id1">#{o?.orderID}</div>
+                                            <div className="views-eyeBox1">
                                                 <img src={eyeIcon} alt="eyeIcon" />
                                                 1/10
                                             </div>
-                                            <div style={{ display: 'flex', gap: '10px' }}>
-                                                <Btn label='Visualizer' style={{ background: "#00B812", width: '153px' }} />
-                                                <div className='fav-btn'>
-                                                    <GradeIcon />
-                                                </div>
-                                            </div>
-
                                         </div>
-                                    </Grid>
-
-                                </Grid>
+                                        <div style={{ display: 'flex', gap: '5px' }}>
+                                            <Btn
+                                                onClick={() => setOpenModal(true)}
+                                                label='Visualizer' style={{ background: "#00B812", width: '100%', height: '38px' }} />
+                                            <div className='fav-btn1'>
+                                                <GradeIcon />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         )
                     })}
                 </div>
             </div>
+            <WishlistModal open={openModal} onClose={() => setOpenModal(false)} />
             <Footer />
         </>
     )
