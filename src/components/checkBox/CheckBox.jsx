@@ -4,7 +4,7 @@ import InputField from '../inputField/InputField';
 
 
 
-export default function CheckBox({ label, onChange, showQual, defaulValue, onTime }) {
+export default function CheckBox({ label, onChange, showQual, defaulValue, timeValue, channgeTimeHandle }) {
 
     let [selected, setSelected] = useState('');
 
@@ -41,7 +41,7 @@ export default function CheckBox({ label, onChange, showQual, defaulValue, onTim
                     </div>
                 </div>
                 {showQual && selected &&
-                    <InputField placeholder='Insira a hora' onChange={(e) => handleTime(e.target.value)}
+                    <InputField placeholder='Insira a hora' value={timeValue} onChange={channgeTimeHandle}
                         style={{ margin: '8px' }}
                     />
                 }
