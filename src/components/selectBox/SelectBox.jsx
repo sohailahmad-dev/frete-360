@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useState } from 'react'
+import './SelectBox.css'
 
 export default function SelectBox({ options, onChange, label }) {
     let [value, setValue] = useState('');

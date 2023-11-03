@@ -94,7 +94,7 @@ textarea::placeholder {
 .form-add-field {
     display: flex;
     justify-content: space-between;
-    gap: 50px;
+    gap: 5%;
     align-items: center;
 }
 

@@ -34,7 +34,7 @@ export default function FormHome() {
   const [imageFile, setImageFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [displayOrderId, setDisplayOrderId] = useState();
-  const [changeTime , setChangeTime] = useState();
+  const [changeTime, setChangeTime] = useState();
   const imageInputRef = useRef();
   const estadoOptions = [
     { name: "Acre", code: "AC" },
@@ -198,7 +198,7 @@ export default function FormHome() {
 
     const step2Data = {
       preferedTimeForMoving: dataObj.preferedTimeForMoving,
-       changeTime,
+      changeTime,
       restrictionOrFees: dataObj.restrictionOrFees,
       needMovingCompany: dataObj.needMovingCompany,
       disassembleOrAssemble: dataObj.disassembleOrAssemble,
@@ -229,7 +229,7 @@ export default function FormHome() {
 
       console.log(formData)
       await createOrder(formData);
-      
+
       setLoading(false);
       setCurrentStep(5);
       // Handle any other actions or feedback (e.g., show a success message)
@@ -462,6 +462,7 @@ export default function FormHome() {
                   <InputField
                     placeholder="Description"
                     value={item.description}
+                    style={{ flex: 7 }}
                     onChange={(e) => {
                       const newItems = [...items];
                       newItems[index].description = e.target.value;
@@ -471,6 +472,7 @@ export default function FormHome() {
                   <InputField
                     placeholder="Quantity"
                     value={item.quantity}
+                    style={{ flex: 4 }}
                     onChange={(e) => {
                       const newItems = [...items];
                       newItems[index].quantity = e.target.value;

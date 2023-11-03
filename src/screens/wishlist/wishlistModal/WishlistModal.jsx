@@ -5,8 +5,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import Btn from '../../../components/btn/Btn';
 
-export default function WishlistModal({ open, onClose , order}) {
-const formatDate = (timestamp) => {
+export default function WishlistModal({ open, onClose, order }) {
+    const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         const day = date.getDate();
         const month = date.getMonth() + 1; // Months are 0-based, so add 1
@@ -16,8 +16,8 @@ const formatDate = (timestamp) => {
 
     return (
         <div>
-            <Modal open={open}>
-                <div className='wishlist-modal-style' >
+            <Modal open={open} >
+                <div className='wishlist-modal-style' onClick={onClose} >
                     <div className='wishlist-modal-content'>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
@@ -87,20 +87,20 @@ const formatDate = (timestamp) => {
                                     </div>
                                     {order.step3Data.items.map((item) => (
                                         <div className='wishlist-modal-underline-item'>
-                                        <div className="wishlist-text-heading">{item.description}</div>
-                                        <div className="wishlist-text-content">{item.quantity}</div>
-                                    </div>
+                                            <div className="wishlist-text-heading">{item.description}</div>
+                                            <div className="wishlist-text-content">{item.quantity}</div>
+                                        </div>
                                     ))}
-                                    
-                                    
+
+
                                     <br />
                                     <div className='wishlist-modal-underline-item2'>
                                         <div className="wishlist-text-heading2">Horário preferencial para a mudança:</div>
-                                        <div className="wishlist-text-content2">{order.step2Data.preferedTimeForMoving === "false" ?  'Não' : 'Sim'}</div>
+                                        <div className="wishlist-text-content2">{order.step2Data.preferedTimeForMoving === "false" ? 'Não' : 'Sim'}</div>
                                     </div>
                                     <div className='wishlist-modal-underline-item2'>
                                         <div className="wishlist-text-heading2">Necessidade de montagem/desmonstagem:</div>
-                                        <div className="wishlist-text-content2">{order.step2Data.disassembleOrAssemble === "false" ?  'Não' : 'Sim'}</div>
+                                        <div className="wishlist-text-content2">{order.step2Data.disassembleOrAssemble === "false" ? 'Não' : 'Sim'}</div>
                                     </div>
                                     <div className='wishlist-modal-underline-item2'>
                                         <div className="wishlist-text-heading2">Restrição ou taxa de trânsito:</div>
