@@ -3,6 +3,7 @@ import "./FormHome.css";
 import SelectBox from "../../../components/selectBox/SelectBox";
 import { Box, FormControl, Grid } from "@mui/material";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import TextField from "@mui/material/TextField";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -15,9 +16,9 @@ import { createOrder } from "../../../firebaseService";
 import { collection, getDocs, where, query } from "firebase/firestore"; // Import query and where
 import { db, storage } from "../../../firebase";
 import axios from "axios";
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import successImg from '../../../assets/imgs/successImg.png'
-
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import successImg from "../../../assets/imgs/successImg.png";
+import dayjs from "dayjs";
 export default function FormHome() {
   const [dataObj, setDataObj] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
@@ -66,6 +67,100 @@ export default function FormHome() {
     { name: "Tocantins", code: "TO" },
   ];
 
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const isDateValid = (date) => {
+    if (!date) return true; // No date selected is considered valid
+    const today = dayjs();
+    const maxDate = today.add(90, "day");
+    return (
+      date.isSame(today, "day") ||
+      (date.isAfter(today) && date.isBefore(maxDate))
+    );
+  };
+
+  const [selectedHouseType, setSelectedHouseType] = useState("");
+  const [selectedAccessibility, setSelectedAccessibility] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+  const [floorNumber, setFloorNumber] = useState("");
+  const houseTypeOptions = [
+    "House",
+    "Apartment",
+    "Country House",
+    "Studio Apartment",
+  ];
+  const [
+    selectedDestinationHouseOrApartment,
+    setSelectedDestinationHouseOrApartment,
+  ] = useState({
+    selectedHouseType: "",
+    selectedAccessibility: "",
+    selectedFloor: "",
+    floorNumber: "",
+  });
+
+  const handleDestinationHouseTypeChange = (value) => {
+    setSelectedDestinationHouseOrApartment((prevState) => ({
+      ...prevState,
+      selectedHouseType: value,
+    }));
+  };
+
+  const handleDestinationAccessibilityChange = (value) => {
+    setSelectedDestinationHouseOrApartment((prevState) => ({
+      ...prevState,
+      selectedAccessibility: value,
+    }));
+  };
+
+  const handleDestinationFloorChange = (value) => {
+    setSelectedDestinationHouseOrApartment((prevState) => ({
+      ...prevState,
+      selectedFloor: value,
+    }));
+  };
+
+  const handleDestinationFloorNumberChange = (value) => {
+    setSelectedDestinationHouseOrApartment((prevState) => ({
+      ...prevState,
+      floorNumber: value,
+    }));
+  };
+
+  const accessibilityOptions = ["Stairs", "Elevator", "Ramp"];
+  const floorOptions = ["Ground Floor", "Specific Floor"];
+
+  const handleHouseTypeChange = (value) => {
+    setSelectedHouseType(value);
+
+    // Clear the selected values in subsequent dropdowns
+    setSelectedAccessibility("");
+    setSelectedFloor("");
+  };
+
+  const handleAccessibilityChange = (value) => {
+    setSelectedAccessibility(value);
+
+    // Clear the selected values in subsequent dropdowns
+    setSelectedFloor("");
+
+    // Show "Select Floor" dropdown only when "Stairs" is selected
+    if (value === "Stairs") {
+      setSelectedFloor(floorOptions[0]); // Set the default value to "Ground Floor"
+    }
+  };
+
+  const handleFloorChange = (value) => {
+    setSelectedFloor(value);
+
+    // Clear the selected floor number
+    setFloorNumber("");
+  };
+
   // Function to fetch cities based on the selected state
   const fetchCitiesByEstado = async (estado) => {
     try {
@@ -97,8 +192,6 @@ export default function FormHome() {
     dataObj[key] = value.toString();
     setDataObj({ ...dataObj });
   };
-
-
 
   const moveToStep2 = () => {
     setCurrentStep(2);
@@ -140,9 +233,6 @@ export default function FormHome() {
     }
   };
 
-
-
-
   const resetState = () => {
     setDataObj({});
     setCurrentStep(1);
@@ -152,10 +242,6 @@ export default function FormHome() {
     setEmail("");
     setPhone("");
   };
-
-
-
-
 
   const submitData = async () => {
     setLoading(true);
@@ -185,36 +271,41 @@ export default function FormHome() {
 
     // Generate a unique random 8-digit ID
     const orderID = await generateUniqueID();
-    setDisplayOrderId(orderID)
+    setDisplayOrderId(orderID);
     const step1Data = {
-      originState: dataObj.originState,
-      originCity: dataObj.originCity,
-      originHouseOrApartment: dataObj.originHouseOrApartment,
-      destinationState: dataObj.destinationState,
-      destinationCity: dataObj.destinationCity,
-      destinationHouseOrApartment: dataObj.destinationHouseOrApartment,
-      dateOfChange: dataObj.dateOfChange,
+      originState: dataObj.originState ?? null,
+      originCity: dataObj.originCity ?? null,
+      originHouseOrApartment: {
+        selectedHouseType: selectedHouseType ?? null,
+        selectedAccessibility: selectedAccessibility ?? null,
+        selectedFloor: selectedFloor ?? null,
+        floorNumber: floorNumber ?? null,
+      },
+      destinationState: dataObj.destinationState ?? null,
+      destinationCity: dataObj.destinationCity ?? null,
+      destinationHouseOrApartment: selectedDestinationHouseOrApartment ?? null,
+      dateOfChange: dataObj.dateOfChange ?? null,
     };
 
     const step2Data = {
-      preferedTimeForMoving: dataObj.preferedTimeForMoving,
-      changeTime,
-      restrictionOrFees: dataObj.restrictionOrFees,
-      needMovingCompany: dataObj.needMovingCompany,
-      disassembleOrAssemble: dataObj.disassembleOrAssemble,
-      isDateFlexible: dataObj.isDateFlexible,
+      preferedTimeForMoving: dataObj.preferedTimeForMoving ?? null,
+      changeTime: changeTime ?? null,
+      restrictionOrFees: dataObj.restrictionOrFees ?? null,
+      needMovingCompany: dataObj.needMovingCompany ?? null,
+      disassembleOrAssemble: dataObj.disassembleOrAssemble ?? null,
+      isDateFlexible: dataObj.isDateFlexible ?? null,
     };
 
     const step3Data = {
-      items,
-      moreDetailInformation,
+      items: items ?? null,
+      moreDetailInformation: moreDetailInformation ?? null,
     };
 
     const step4Data = {
-      name,
-      email,
-      phone,
-      imageURL: imageURL, // Add the imageURL from state
+      name: name ?? null,
+      email: email ?? null,
+      phone: phone ?? null,
+      imageURL: imageURL ?? null,
     };
 
     const formData = {
@@ -226,8 +317,7 @@ export default function FormHome() {
     };
 
     try {
-
-      console.log(formData)
+      console.log(formData);
       await createOrder(formData);
 
       setLoading(false);
@@ -240,9 +330,9 @@ export default function FormHome() {
   };
 
   const backToForm = () => {
-    setCurrentStep(1)
-    resetState()
-  }
+    setCurrentStep(1);
+    resetState();
+  };
 
   return (
     <div className="home-form-parent">
@@ -311,13 +401,49 @@ export default function FormHome() {
                 style={{ width: "100%", padding: "10px", margin: "10px 0" }}
               />
             </Grid>
+            {/* multiselections */}
+
             <Grid item xs={12}>
               <SelectBox
-                label="Casa ou Apartamento"
-                options={options}
-                onChange={(val) => addValue("originHouseOrApartment", val)}
+                label="Select House Type"
+                options={houseTypeOptions}
+                onChange={handleHouseTypeChange}
+                value={selectedHouseType}
               />
             </Grid>
+
+            {selectedHouseType === "House" && (
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Accessibility"
+                  options={accessibilityOptions}
+                  onChange={handleAccessibilityChange}
+                  value={selectedAccessibility}
+                />
+              </Grid>
+            )}
+
+            {selectedAccessibility === "Stairs" && (
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Floor"
+                  options={floorOptions}
+                  onChange={handleFloorChange}
+                  value={selectedFloor}
+                />
+              </Grid>
+            )}
+
+            {selectedFloor === "Specific Floor" && (
+              <Grid item xs={12}>
+                <InputField
+                  label="Enter Floor Number"
+                  value={floorNumber}
+                  onChange={(e) => setFloorNumber(e.target.value)}
+                />
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <div className="form-heading">Qual destino da mudança?</div>
             </Grid>
@@ -349,28 +475,80 @@ export default function FormHome() {
               <SelectBox
                 label="Casa ou Apartamento"
                 options={options}
-                onChange={(val) => addValue("destinationHouseOrApartment", val)}
+                onChange={handleDestinationHouseTypeChange}
+                value={selectedDestinationHouseOrApartment.selectedHouseType}
               />
             </Grid>
+
+            {/* Render SelectBox for Accessibility */}
+            {selectedDestinationHouseOrApartment.selectedHouseType ===
+              "House" && (
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Accessibility"
+                  options={accessibilityOptions}
+                  onChange={handleDestinationAccessibilityChange}
+                  value={
+                    selectedDestinationHouseOrApartment.selectedAccessibility
+                  }
+                />
+              </Grid>
+            )}
+
+            {/* Render SelectBox for Floor */}
+            {selectedDestinationHouseOrApartment.selectedAccessibility ===
+              "Stairs" && (
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Floor"
+                  options={floorOptions}
+                  onChange={handleDestinationFloorChange}
+                  value={selectedDestinationHouseOrApartment.selectedFloor}
+                />
+              </Grid>
+            )}
+
+            {/* Render InputField for Floor Number */}
+            {selectedDestinationHouseOrApartment.selectedFloor ===
+              "Specific Floor" && (
+              <Grid item xs={12}>
+                <InputField
+                  label="Enter Floor Number"
+                  value={selectedDestinationHouseOrApartment.floorNumber}
+                  onChange={(e) =>
+                    handleDestinationFloorNumberChange(e.target.value)
+                  }
+                />
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <div className="form-heading">Qual a data da mudança?</div>
             </Grid>
             <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker
-                    label="dd/mm/aa"
-                    onChange={(val) => {
-                      addValue("dateOfChange", val.$d);
-                    }}
-                    sx={{
-                      width: "100%",
-                      background: "white",
-                      border: "1px solid gray",
-                    }}
-                  />
-                </DemoContainer>
+                <DatePicker
+                  label="Select a date"
+                  value={selectedDate}
+                  onChange={(val) => {
+                    addValue("dateOfChange", val.$d);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                  shouldDisableDate={(date) => !isDateValid(dayjs(date))}
+                  error={!isDateValid(dayjs(selectedDate))}
+                  helperText={
+                    !isDateValid(dayjs(selectedDate))
+                      ? "Date cannot be more than 90 days from the request date"
+                      : ""
+                  }
+                  sx={{
+                    width: "100%",
+                    background: "white",
+                    border: "1px solid gray",
+                  }}
+                />
               </LocalizationProvider>
+            
             </Grid>
             <Grid item xs={12}>
               <div>
@@ -601,12 +779,15 @@ export default function FormHome() {
                   Pedido realizado <br /> com sucesso!
                 </div>
                 <div className="form-success-content">
-                  O número do seu pedido é
-                  <div>{displayOrderId}</div>
+                  O número do seu pedido é<div>{displayOrderId}</div>
                 </div>
-                <img className="form-success-img" src={successImg} alt="success-img" />
+                <img
+                  className="form-success-img"
+                  src={successImg}
+                  alt="success-img"
+                />
                 <Btn
-                  label='Voltar ao inicio'
+                  label="Voltar ao inicio"
                   onClick={backToForm}
                   style={{ width: "100%", height: "45px" }}
                 />
@@ -615,6 +796,6 @@ export default function FormHome() {
           </Grid>
         )}
       </div>
-    </div >
+    </div>
   );
 }
