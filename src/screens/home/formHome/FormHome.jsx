@@ -35,7 +35,7 @@ export default function FormHome() {
   const [imageFile, setImageFile] = useState(null);
   const [imageURL, setImageURL] = useState(null);
   const [displayOrderId, setDisplayOrderId] = useState();
-  const [changeTime, setChangeTime] = useState();
+  const [changeTime, setChangeTime] = useState(null);
   const imageInputRef = useRef();
   const estadoOptions = [
     { name: "Acre", code: "AC" },
@@ -70,9 +70,12 @@ export default function FormHome() {
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    setSelectedDate(date.$d);
   };
 
+  const handleChangeTime = (time) => {
+    setChangeTime(time.$d)
+  }
   const isDateValid = (date) => {
     if (!date) return true; // No date selected is considered valid
     const today = dayjs();
@@ -269,6 +272,8 @@ export default function FormHome() {
       return id;
     };
 
+
+    
     // Generate a unique random 8-digit ID
     const orderID = await generateUniqueID();
     setDisplayOrderId(orderID);
@@ -438,6 +443,7 @@ export default function FormHome() {
               <Grid item xs={12}>
                 <InputField
                   label="Enter Floor Number"
+                  placeholder={"Enter the Floor Number"}
                   value={floorNumber}
                   onChange={(e) => setFloorNumber(e.target.value)}
                 />
@@ -514,6 +520,7 @@ export default function FormHome() {
               <Grid item xs={12}>
                 <InputField
                   label="Enter Floor Number"
+                  placeholder={"Enter the Floor Number"}
                   value={selectedDestinationHouseOrApartment.floorNumber}
                   onChange={(e) =>
                     handleDestinationFloorNumberChange(e.target.value)
@@ -573,7 +580,7 @@ export default function FormHome() {
                 label="Existe algum horário preferencial para a mudança?"
                 showQual={true}
                 timeValue={changeTime}
-                channgeTimeHandle={(e) => setChangeTime(e.target.value)}
+                channgeTimeHandle={handleChangeTime}
               />
               <CheckBox
                 defaultValue={dataObj?.restrictionOrFees}
