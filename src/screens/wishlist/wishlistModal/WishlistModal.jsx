@@ -82,8 +82,8 @@ export default function WishlistModal({ open, onClose, order }) {
                                         Listagem:
                                     </div>
                                     <div >
-                                        <div className="wishlist-text-heading" style={{ fontWeight: 'bold' }}>Item</div>
-                                        <div className="wishlist-text-content" style={{ fontWeight: 'bold' }}>Quantitade</div>
+                                        <div className="wishlist-text-heading bolded" style={{ fontWeight: 'bold' }}>Item</div>
+                                        <div className="wishlist-text-content bolded" style={{ fontWeight: 'bold' }}>Quantitade</div>
                                     </div>
                                     {order.step3Data.items.map((item) => (
                                         <div className='wishlist-modal-underline-item'>

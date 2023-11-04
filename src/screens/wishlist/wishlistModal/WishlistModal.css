@@ -22,6 +22,8 @@
     font-size: 24px;
     font-weight: bold;
     color: #414141;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-modal-heading div {
@@ -50,11 +52,14 @@
     color: #0026AB;
     font-size: 22px;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
 }
 
 .wishlist-modal-subHeading {
     font-weight: bold;
     font-size: 18px;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
 }
 
 .wishlist-modal-body div {
@@ -81,6 +86,12 @@
     width: 70%;
     margin: 8px 0px;
     font-weight: bold;
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
+
+}
+
+.bolded {
+    font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
 }
 
 .wishlist-text-content {
@@ -117,6 +128,15 @@
         border-radius: 10px;
         padding: 3% 2%;
         overflow-y: scroll;
-        padding-bottom: 8%;
+        padding-bottom: 12%;
+    }
+
+    .wishlist-text-heading,
+    .wishlist-text-heading1,
+    .wishlist-text-heading1 {
+        font-size: 16px;
+        font-weight: 500;
+        width: 40%;
+        margin: 5px 0px;
     }
 }

@@ -52,11 +52,13 @@
 .home-form {
     min-height: 300px;
     width: 100%;
-    background-color: #ffff;
-    border-radius: 10px;
+    background-color: #FDFCF8;
     margin-top: 20px;
     padding: 20px 12%;
     color: #414141;
+    border-radius: 10px;
+    border: 1px solid #DADADA;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.12);
 }
 
 .form-heading {
@@ -64,14 +66,12 @@
     font-size: 24px;
     margin-top: 10px;
     font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
-
 }
 
 .form-heading1 {
     font-weight: bold;
     font-size: 20px;
     font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
-
 }
 
 .form-error-msg {
@@ -162,5 +162,32 @@ textarea::placeholder {
         flex-direction: column;
         gap: 0px;
         align-items: flex-start;
+    }
+
+    .home-form {
+        min-height: 300px;
+        width: 100%;
+        border-radius: 10px;
+        margin-top: 20px;
+        padding: 10px;
+        color: #414141;
+    }
+
+    .form-heading {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    .form-heading1 {
+        font-size: 18px;
+    }
+
+    .css-mhc70k-MuiGrid-root>.MuiGrid-item {
+        padding-top: 10px;
+    }
+
+    .textArea-form {
+        font-size: 14px;
+        margin-top: 15px;
     }
 }

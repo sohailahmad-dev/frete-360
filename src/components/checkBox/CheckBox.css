@@ -1,3 +1,7 @@
+.main-checkBox {
+    margin-bottom: 25px;
+}
+
 .checkBox-text {
     padding-right: 30%;
     margin-top: 15px;
@@ -56,12 +60,15 @@
 }
 
 @media (max-width: 699px) {
-    .mainCheckBox {
-        margin-bottom: 10px;
-    }
 
     .checkBox-1 {
         flex-direction: column;
         align-items: flex-start;
+
+    }
+
+    .checkBox-text {
+        font-size: 14px;
+        padding-right: 5%;
     }
 }

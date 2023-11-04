@@ -125,4 +125,13 @@ body {
 
 
 
-/* @media (max-width: 699px) {} */
+@media (max-width: 699px) {
+  .content-padding {
+    padding: 10px;
+  }
+
+  * {
+    font-size: 14px;
+  }
+
+}

@@ -45,8 +45,8 @@ export default function Home() {
                     <Grid item md={6} xs={12} >
                         <div className="home-sec1-right">
                             <FormHome />
-                            <div className="home-sec1-semiCircle1">
 
+                            <div className="home-sec1-semiCircle1" >
                                 Gostaria de ver a <span>lista de pedidos?</span>
                                 <Btn label='Login' style={{ backgroundColor: 'white', color: '#0026AB', fontSize: '17px', border: '2px solid #0026AB', height: '35px', width: "229px", marginTop: '25px' }} />
                             </div>
@@ -135,13 +135,18 @@ export default function Home() {
                                 Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet dolor sit amet Lorem ipsum dolor sit amet dolor sit amet Lorem ipsum dolor
                             </div>
                         </div>
-
-                        <Btn label='Cadastre sua empresa' style={{ width: '370px', maxWidth: '100%', marginTop: '50px', marginBottom: '15px' }} />
-                        <Btn label='Ver lista de pedidos' style={{ width: '370px', maxWidth: '100%', border: '2px solid #0026AB', color: '#0026AB', backgroundColor: 'white' }} />
+                        <div className="home-sec4-desktop-btns">
+                            <Btn label='Cadastre sua empresa' style={{ width: '370px', maxWidth: '100%', marginTop: '50px', marginBottom: '15px' }} />
+                            <Btn label='Ver lista de pedidos' style={{ width: '370px', maxWidth: '100%', border: '2px solid #0026AB', color: '#0026AB', backgroundColor: 'white' }} />
+                        </div>
                     </Grid>
                     <Grid item sm={7} xs={12}>
                         <div className="home-sec4-right">
                             <img src={homeSec4} className='home-sec4-img' alt="home-sec4-img" />
+                        </div>
+                        <div className="home-sec4-mobile-btns">
+                            <Btn label='Cadastre sua empresa' style={{ width: '370px', maxWidth: '100%', marginTop: '50px', marginBottom: '15px' }} />
+                            <Btn label='Ver lista de pedidos' style={{ width: '370px', maxWidth: '100%', border: '2px solid #0026AB', color: '#0026AB', backgroundColor: 'white' }} />
                         </div>
                     </Grid>
                 </Grid>

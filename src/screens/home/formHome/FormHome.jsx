@@ -273,7 +273,7 @@ export default function FormHome() {
     };
 
 
-    
+
     // Generate a unique random 8-digit ID
     const orderID = await generateUniqueID();
     setDisplayOrderId(orderID);
@@ -489,45 +489,45 @@ export default function FormHome() {
             {/* Render SelectBox for Accessibility */}
             {selectedDestinationHouseOrApartment.selectedHouseType ===
               "House" && (
-              <Grid item xs={12}>
-                <SelectBox
-                  label="Select Accessibility"
-                  options={accessibilityOptions}
-                  onChange={handleDestinationAccessibilityChange}
-                  value={
-                    selectedDestinationHouseOrApartment.selectedAccessibility
-                  }
-                />
-              </Grid>
-            )}
+                <Grid item xs={12}>
+                  <SelectBox
+                    label="Select Accessibility"
+                    options={accessibilityOptions}
+                    onChange={handleDestinationAccessibilityChange}
+                    value={
+                      selectedDestinationHouseOrApartment.selectedAccessibility
+                    }
+                  />
+                </Grid>
+              )}
 
             {/* Render SelectBox for Floor */}
             {selectedDestinationHouseOrApartment.selectedAccessibility ===
               "Stairs" && (
-              <Grid item xs={12}>
-                <SelectBox
-                  label="Select Floor"
-                  options={floorOptions}
-                  onChange={handleDestinationFloorChange}
-                  value={selectedDestinationHouseOrApartment.selectedFloor}
-                />
-              </Grid>
-            )}
+                <Grid item xs={12}>
+                  <SelectBox
+                    label="Select Floor"
+                    options={floorOptions}
+                    onChange={handleDestinationFloorChange}
+                    value={selectedDestinationHouseOrApartment.selectedFloor}
+                  />
+                </Grid>
+              )}
 
             {/* Render InputField for Floor Number */}
             {selectedDestinationHouseOrApartment.selectedFloor ===
               "Specific Floor" && (
-              <Grid item xs={12}>
-                <InputField
-                  label="Enter Floor Number"
-                  placeholder={"Enter the Floor Number"}
-                  value={selectedDestinationHouseOrApartment.floorNumber}
-                  onChange={(e) =>
-                    handleDestinationFloorNumberChange(e.target.value)
-                  }
-                />
-              </Grid>
-            )}
+                <Grid item xs={12}>
+                  <InputField
+                    label="Enter Floor Number"
+                    placeholder={"Enter the Floor Number"}
+                    value={selectedDestinationHouseOrApartment.floorNumber}
+                    onChange={(e) =>
+                      handleDestinationFloorNumberChange(e.target.value)
+                    }
+                  />
+                </Grid>
+              )}
 
             <Grid item xs={12}>
               <div className="form-heading">Qual a data da mudança?</div>
@@ -551,18 +551,17 @@ export default function FormHome() {
                   sx={{
                     width: "100%",
                     background: "white",
-                    border: "1px solid gray",
                   }}
                 />
               </LocalizationProvider>
-            
+
             </Grid>
             <Grid item xs={12}>
               <div>
                 <Btn
                   label="Próximo"
                   onClick={moveToStep2}
-                  style={{ width: "100%", height: "45px", margin: "15px 0px" }}
+                  style={{ width: "100%", height: "45px", margin: "5px 0px" }}
                 />
               </div>
             </Grid>
@@ -605,7 +604,7 @@ export default function FormHome() {
             </Grid>
             <Grid item xs={12}>
               <div
-                style={{ display: "flex", gap: "20px", marginBottom: "15px" }}
+                style={{ display: "flex", gap: "20px", marginTop: "-20px" }}
               >
                 <Btn
                   label="Voltar"
@@ -680,7 +679,7 @@ export default function FormHome() {
             </Grid>
             <Grid item xs={12}>
               <div
-                style={{ display: "flex", gap: "20px", marginBottom: "15px" }}
+                style={{ display: "flex", gap: "20px", marginBottom: "0px" }}
               >
                 <Btn
                   label="Voltar"
@@ -707,10 +706,8 @@ export default function FormHome() {
           <Grid container spacing={2}>
             {/* Step 4 content */}
             <Grid item xs={12}>
-              <div style={{ textAlign: "center" }}>
-                <div className="form-heading">
-                  Provide your contact information:
-                </div>
+              <div className="form-heading">
+                Informe seus dados para contato:
               </div>
               <InputField
                 value={name}
@@ -727,15 +724,15 @@ export default function FormHome() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone:"
               />
-              <div className="upload-photo-box">
+              <div className="upload-photo-box" onClick={() => imageInputRef.current.click()}>
                 <img
                   src={imageURL || photo} // Use the previewImage state for the image source
                   alt="photo"
                   className="upload-photo"
-                  onClick={() => imageInputRef.current.click()}
+
                 />
                 <div className="upload-photo-innerBox">
-                  <div className="upload-photo-text">
+                  <div className="upload-photo-text" style={{ marginBottom: '5px' }}>
                     Add a photo of your face
                   </div>
                   <div className="upload-photo-text1">
@@ -754,7 +751,7 @@ export default function FormHome() {
             </Grid>
             <Grid item xs={12}>
               <div
-                style={{ display: "flex", gap: "20px", marginBottom: "15px" }}
+                style={{ display: "flex", gap: "20px", marginBottom: "0px" }}
               >
                 <Btn
                   label="Voltar"
