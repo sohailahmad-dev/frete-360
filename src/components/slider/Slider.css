@@ -77,16 +77,6 @@ q {
     transition: 0.5s ease;
 }
 
-.slider-card {
-    transition: opacity 0.5s ease-in-out;
-    opacity: 0;
-    height: 100%;
-}
-
-.slider-card.active {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
 
 @media (max-width: 699px) {
 
