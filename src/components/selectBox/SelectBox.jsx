@@ -14,7 +14,7 @@ export default function SelectBox({ options, onChange, label }) {
     return (
         <Box sx={{ width: '100%', margin: '0px' }}>
             <FormControl fullWidth size='small'>
-                <InputLabel id="demo-simple-select-label">{label ?? "Select"}</InputLabel>
+                <InputLabel style={{backgroundColor: 'white'}} id="demo-simple-select-label">{label ?? "Select"}</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

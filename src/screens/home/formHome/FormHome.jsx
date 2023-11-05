@@ -23,7 +23,7 @@ export default function FormHome() {
   const [dataObj, setDataObj] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const options = ["House", "Apartment", "Country House", "Studio Apartment"];
-  const [items, setItems] = useState([{ description: "", quantity: "" }]);
+
   const [moreDetailInformation, setMoreDetailInformation] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,6 +37,18 @@ export default function FormHome() {
   const [displayOrderId, setDisplayOrderId] = useState();
   const [changeTime, setChangeTime] = useState(null);
   const imageInputRef = useRef();
+
+  const [items, setItems] = useState([]);
+const [newItem, setNewItem] = useState({ description: "", quantity: "" });
+
+const addItem = () => {
+  if (newItem.description.trim() !== "" && newItem.quantity.trim() !== "") {
+    setItems([...items, newItem]);
+    setNewItem({ description: "", quantity: "" });
+  }
+};
+
+
   const estadoOptions = [
     { name: "Acre", code: "AC" },
     { name: "Alagoas", code: "AL" },
@@ -74,8 +86,8 @@ export default function FormHome() {
   };
 
   const handleChangeTime = (time) => {
-    setChangeTime(time.$d)
-  }
+    setChangeTime(time.$d);
+  };
   const isDateValid = (date) => {
     if (!date) return true; // No date selected is considered valid
     const today = dayjs();
@@ -187,10 +199,6 @@ export default function FormHome() {
     }
   };
 
-  const addItem = () => {
-    setItems([...items, { description: "", quantity: "" }]);
-  };
-
   const addValue = (key, value) => {
     dataObj[key] = value.toString();
     setDataObj({ ...dataObj });
@@ -235,7 +243,7 @@ export default function FormHome() {
       });
     }
   };
-
+console.log(items)
   const resetState = () => {
     setDataObj({});
     setCurrentStep(1);
@@ -271,8 +279,6 @@ export default function FormHome() {
       } while (!(await isIDUnique(id)));
       return id;
     };
-
-
 
     // Generate a unique random 8-digit ID
     const orderID = await generateUniqueID();
@@ -333,6 +339,8 @@ export default function FormHome() {
       setLoading(false);
     }
   };
+
+
 
   const backToForm = () => {
     setCurrentStep(1);
@@ -489,45 +497,45 @@ export default function FormHome() {
             {/* Render SelectBox for Accessibility */}
             {selectedDestinationHouseOrApartment.selectedHouseType ===
               "House" && (
-                <Grid item xs={12}>
-                  <SelectBox
-                    label="Select Accessibility"
-                    options={accessibilityOptions}
-                    onChange={handleDestinationAccessibilityChange}
-                    value={
-                      selectedDestinationHouseOrApartment.selectedAccessibility
-                    }
-                  />
-                </Grid>
-              )}
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Accessibility"
+                  options={accessibilityOptions}
+                  onChange={handleDestinationAccessibilityChange}
+                  value={
+                    selectedDestinationHouseOrApartment.selectedAccessibility
+                  }
+                />
+              </Grid>
+            )}
 
             {/* Render SelectBox for Floor */}
             {selectedDestinationHouseOrApartment.selectedAccessibility ===
               "Stairs" && (
-                <Grid item xs={12}>
-                  <SelectBox
-                    label="Select Floor"
-                    options={floorOptions}
-                    onChange={handleDestinationFloorChange}
-                    value={selectedDestinationHouseOrApartment.selectedFloor}
-                  />
-                </Grid>
-              )}
+              <Grid item xs={12}>
+                <SelectBox
+                  label="Select Floor"
+                  options={floorOptions}
+                  onChange={handleDestinationFloorChange}
+                  value={selectedDestinationHouseOrApartment.selectedFloor}
+                />
+              </Grid>
+            )}
 
             {/* Render InputField for Floor Number */}
             {selectedDestinationHouseOrApartment.selectedFloor ===
               "Specific Floor" && (
-                <Grid item xs={12}>
-                  <InputField
-                    label="Enter Floor Number"
-                    placeholder={"Enter the Floor Number"}
-                    value={selectedDestinationHouseOrApartment.floorNumber}
-                    onChange={(e) =>
-                      handleDestinationFloorNumberChange(e.target.value)
-                    }
-                  />
-                </Grid>
-              )}
+              <Grid item xs={12}>
+                <InputField
+                  label="Enter Floor Number"
+                  placeholder={"Enter the Floor Number"}
+                  value={selectedDestinationHouseOrApartment.floorNumber}
+                  onChange={(e) =>
+                    handleDestinationFloorNumberChange(e.target.value)
+                  }
+                />
+              </Grid>
+            )}
 
             <Grid item xs={12}>
               <div className="form-heading">Qual a data da mudança?</div>
@@ -554,7 +562,6 @@ export default function FormHome() {
                   }}
                 />
               </LocalizationProvider>
-
             </Grid>
             <Grid item xs={12}>
               <div>
@@ -603,9 +610,7 @@ export default function FormHome() {
               />
             </Grid>
             <Grid item xs={12}>
-              <div
-                style={{ display: "flex", gap: "20px", marginTop: "-20px" }}
-              >
+              <div style={{ display: "flex", gap: "20px", marginTop: "-20px" }}>
                 <Btn
                   label="Voltar"
                   onClick={moveBackStep1}
@@ -642,41 +647,51 @@ export default function FormHome() {
               />
               <div className="form-heading1">If you prefer, add items</div>
 
-              {items.map((item, index) => (
-                <div key={index} className="form-add-field">
-                  <InputField
-                    placeholder="Description"
-                    value={item.description}
-                    style={{ flex: 7 }}
-                    onChange={(e) => {
-                      const newItems = [...items];
-                      newItems[index].description = e.target.value;
-                      setItems(newItems);
+              <div className="form-add-field">
+                <InputField
+                  placeholder="Description"
+                  style={{ flex: 7 }}
+                  value={newItem.description}
+                  onChange={(e) =>
+                    setNewItem({ ...newItem, description: e.target.value })
+                  }
+                />
+                <InputField
+                  placeholder="Quantity"
+                  style={{ flex: 4 }}
+                  value={newItem.quantity}
+                  onChange={(e) =>
+                    setNewItem({ ...newItem, quantity: e.target.value })
+                  }
+                />
+                <Btn
+                  label="+"
+                  onClick={addItem}
+                  style={{
+                    height: "40px",
+                    background: "#00A907",
+                    padding: "0px 20px",
+                  }}
+                />
+              </div>
+              <div>
+                {items.map((item, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      padding: "8px",
+                      borderBottom: "1px solid #ccc"
                     }}
-                  />
-                  <InputField
-                    placeholder="Quantity"
-                    value={item.quantity}
-                    style={{ flex: 4 }}
-                    onChange={(e) => {
-                      const newItems = [...items];
-                      newItems[index].quantity = e.target.value;
-                      setItems(newItems);
-                    }}
-                  />
-                  {index === items.length - 1 && (
-                    <Btn
-                      label="+"
-                      onClick={addItem}
-                      style={{
-                        height: "40px",
-                        background: "#00A907",
-                        padding: "0px 20px",
-                      }}
-                    />
-                  )}
-                </div>
-              ))}
+                  >
+                    <div style={{ flex: 1 }}>{item.description}</div>
+                    <div style={{ flex: 1, textAlign: "left" , marginLeft:"50px"}}>
+                      {item.quantity}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </Grid>
             <Grid item xs={12}>
               <div
@@ -725,15 +740,20 @@ export default function FormHome() {
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone:"
               />
-              <div className="upload-photo-box" onClick={() => imageInputRef.current.click()}>
+              <div
+                className="upload-photo-box"
+                onClick={() => imageInputRef.current.click()}
+              >
                 <img
                   src={imageURL || photo} // Use the previewImage state for the image source
                   alt="photo"
                   className="upload-photo"
-
                 />
                 <div className="upload-photo-innerBox">
-                  <div className="upload-photo-text" style={{ marginBottom: '5px' }}>
+                  <div
+                    className="upload-photo-text"
+                    style={{ marginBottom: "5px" }}
+                  >
                     Add a photo of your face
                   </div>
                   <div className="upload-photo-text1">
