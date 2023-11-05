@@ -340,7 +340,9 @@ console.log(items)
     }
   };
 
-
+const removeItems = () => {
+  setItems([])
+}
 
   const backToForm = () => {
     setCurrentStep(1);
@@ -562,6 +564,7 @@ console.log(items)
                   }}
                 />
               </LocalizationProvider>
+              <div style={{width: '100%',color: '#FF5F5F', fontSize: 14, fontStyle: 'italic', fontWeight: '400', wordWrap: 'break-word', marginTop:'5px'}}>Atenção: a data máxima da mudança é de até 90 dias a partir do dia de hoje.</div>
             </Grid>
             <Grid item xs={12}>
               <div>
@@ -692,6 +695,10 @@ console.log(items)
                   </div>
                 ))}
               </div>
+              {items.length === 0 ? null : (
+                <div onClick={removeItems} style={{textAlign: 'right', cursor: 'pointer', color: '#EA4646', fontSize: 16, fontStyle: 'italic', fontWeight: 'bold', textDecoration: 'underline',  wordWrap: 'break-word', marginTop:"10px"}}>Limpar lista</div>
+              )}
+              
             </Grid>
             <Grid item xs={12}>
               <div
