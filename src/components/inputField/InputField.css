@@ -20,3 +20,10 @@ input {
     width: 100%;
     font-size: 14px;
 }
+
+
+@media (max-width: 699px) {
+    input {
+        font-size: 12px;
+    }
+}

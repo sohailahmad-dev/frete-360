@@ -641,6 +641,7 @@ export default function FormHome() {
                 placeholder="The more detailed the description, the more accurately companies can provide a suitable quote."
               />
               <div className="form-heading1">If you prefer, add items</div>
+
               {items.map((item, index) => (
                 <div key={index} className="form-add-field">
                   <InputField

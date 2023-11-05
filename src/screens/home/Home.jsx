@@ -15,6 +15,23 @@ import FormHome from './formHome/FormHome'
 
 
 export default function Home() {
+    const reviews = [
+        {
+            id: '01'
+        },
+        {
+            id: '02'
+        },
+        {
+            id: '03'
+        },
+        {
+            id: '04'
+        },
+        {
+            id: '05'
+        },
+    ]
 
     return (
         <div>
@@ -115,7 +132,7 @@ export default function Home() {
                     Conheça a Frete Brasil é rápido, fácil e gratuito
                 </div>
                 <div className="home-sec3-cards">
-                    <Slider />
+                    <Slider slides={reviews} />
                 </div>
             </div>
             <div className="wavy-div3" />

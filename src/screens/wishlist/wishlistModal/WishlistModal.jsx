@@ -14,18 +14,22 @@ export default function WishlistModal({ open, onClose, order }) {
         return `${day < 10 ? '0' : ''}${day}/${month < 10 ? '0' : ''}${month}/${year}`;
     };
 
+    const innerDivClick = (event) => {
+        event.stopPropagation(); // Prevent the click event from bubbling up to the outer div
+    }
+
     return (
         <div>
             <Modal open={open} >
                 <div className='wishlist-modal-style' onClick={onClose} >
-                    <div className='wishlist-modal-content'>
+                    <div className='wishlist-modal-content' onClick={innerDivClick}>
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <div className="wishlist-modal-header">
                                     <div className="wishlist-modal-heading">
                                         Detalhes do pedido
                                         <div onClick={onClose}>
-                                            <CancelIcon sx={{ fontSize: 40 }} />
+                                            <CancelIcon sx={{ fontSize: 29 }} />
                                         </div>
                                     </div>
                                     <div className="wishlist-modal-id">
@@ -53,9 +57,9 @@ export default function WishlistModal({ open, onClose, order }) {
                                         icon={<WhatsAppIcon />}
                                         label={'Voltar ao inicio'}
                                         onClick={() => { }}
-                                        style={{ width: "100%", height: "45px", background: '#029711', margin: '35px 0px' }}
+                                        style={{ width: "100%", height: "45px", background: '#029711', margin: '20px 0px' }}
                                     />
-                                    <div className="wishlist-modal-subHeading">Dados da mudança:</div>
+                                    <div className="wishlist-modal-subHeading line-above">Dados da mudança:</div>
                                     <div>
                                         <div className="wishlist-text-heading1">Origem:</div>
                                         <div className="wishlist-text-content">{order?.step1Data?.originCity} / {order?.step1Data?.originState}</div>
@@ -68,17 +72,17 @@ export default function WishlistModal({ open, onClose, order }) {
                                         <div className="wishlist-text-heading1">Data da mudança:</div>
                                         <div className="wishlist-text-content">22/02/2024</div>
                                     </div>
-                                    <div className="wishlist-text-heading1">Descrição:</div>
+                                    <div className="wishlist-text-heading1 mt-20">Descrição:</div>
                                     <div className="wishlist-text-content1">Lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit, lorem ipsum dolor sit,</div>
-
                                 </div>
-
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <div className="wishlist-modal-body">
-                                    <div className="wishlist-text-heading1">Descrição:</div>
-                                    <div className="wishlist-text-content1">{order.step3Data.moreDetailInformation}</div>
-                                    <div className="wishlist-text-heading1" style={{ marginTop: '25px' }}>
+                                    <div className="desktop-description-modal">
+                                        <div className="wishlist-text-heading1">Descrição:</div>
+                                        <div className="wishlist-text-content1">{order.step3Data.moreDetailInformation}</div>
+                                    </div>
+                                    <div className="wishlist-text-heading1 mt-desktop" >
                                         Listagem:
                                     </div>
                                     <div >
@@ -87,8 +91,8 @@ export default function WishlistModal({ open, onClose, order }) {
                                     </div>
                                     {order.step3Data.items.map((item) => (
                                         <div className='wishlist-modal-underline-item'>
-                                            <div className="wishlist-text-heading">{item.description}</div>
-                                            <div className="wishlist-text-content">{item.quantity}</div>
+                                            <div className="wishlist-text-heading11">{item.description}</div>
+                                            <div className="wishlist-text-content11">{item.quantity}</div>
                                         </div>
                                     ))}
 

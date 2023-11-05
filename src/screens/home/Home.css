@@ -266,6 +266,10 @@
     max-width: 100%;
 }
 
+.home-sec4-mobile-btns {
+    display: none;
+}
+
 @media screen and (max-width:699px) {
     .home-sec1-heading {
         font-size: 34px;

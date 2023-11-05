@@ -158,10 +158,7 @@ textarea::placeholder {
     }
 
     .form-add-field {
-        display: flex;
-        flex-direction: column;
-        gap: 0px;
-        align-items: flex-start;
+        gap: 7px;
     }
 
     .home-form {

@@ -44,7 +44,8 @@
     align-items: center;
     gap: 10px;
     margin: 10px 0px;
-    padding-bottom: 15px;
+    margin-bottom: 0px;
+    padding-bottom: 12px;
     border-bottom: 3px solid #E6E6E6;
 }
 
@@ -67,7 +68,8 @@
     align-items: center;
 }
 
-.wishlist-text-heading {
+.wishlist-text-heading,
+.wishlist-text-heading11 {
     font-size: 16px;
     font-weight: 500;
     width: 40%;
@@ -94,7 +96,8 @@
     font-family: 'Helvetica Bold', 'Courier New', Courier, monospace;
 }
 
-.wishlist-text-content {
+.wishlist-text-content,
+.wishlist-text-content11 {
     font-size: 16px;
 }
 
@@ -115,6 +118,10 @@
     padding: 5px 0px;
 }
 
+.mt-desktop {
+    margin-top: 25px;
+}
+
 @media screen and (max-width:699px) {
     .wishlist-modal-style {
         padding: 3%;
@@ -128,7 +135,12 @@
         border-radius: 10px;
         padding: 3% 2%;
         overflow-y: scroll;
-        padding-bottom: 12%;
+        padding-bottom: 20px;
+
+    }
+
+    .wishlist-modal-header {
+        margin-top: 10px;
     }
 
     .wishlist-text-heading,
@@ -137,6 +149,34 @@
         font-size: 16px;
         font-weight: 500;
         width: 40%;
-        margin: 5px 0px;
+        margin: 7px 0px;
     }
+
+    .mt-20 {
+        margin-top: 15px;
+    }
+
+    .line-above {
+        border-top: 3px solid #E6E6E6;
+        border-radius: 5px;
+        padding-top: 20px;
+        padding-bottom: 15px;
+    }
+
+    .desktop-description-modal div {
+        display: none;
+    }
+
+    .mt-desktop {
+        margin-top: 0px;
+    }
+
+
+    .wishlist-text-heading11,
+    .wishlist-text-heading2 {
+        margin: 4px 0px;
+    }
+
+
+
 }
