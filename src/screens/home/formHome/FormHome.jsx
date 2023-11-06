@@ -23,7 +23,6 @@ export default function FormHome() {
   const [dataObj, setDataObj] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const options = ["House", "Apartment", "Country House", "Studio Apartment"];
-
   const [moreDetailInformation, setMoreDetailInformation] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,17 +36,238 @@ export default function FormHome() {
   const [displayOrderId, setDisplayOrderId] = useState();
   const [changeTime, setChangeTime] = useState(null);
   const imageInputRef = useRef();
-
   const [items, setItems] = useState([]);
-const [newItem, setNewItem] = useState({ description: "", quantity: "" });
+  const [newItem, setNewItem] = useState({ description: "", quantity: "" });
 
-const addItem = () => {
-  if (newItem.description.trim() !== "" && newItem.quantity.trim() !== "") {
-    setItems([...items, newItem]);
-    setNewItem({ description: "", quantity: "" });
-  }
-};
+  // Error States
+  // step 1
+  const [originStateError, setOriginStateError] = useState("");
+  const [originCityError, setOriginCityError] = useState("");
+  const [houseTypeError, setHouseTypeError] = useState("");
+  const [destinationStateError, setDestinationStateError] = useState("");
+  const [destinationCityError, setDestinationCityError] = useState("");
+  const [
+    destinationHouseOrApartmentError,
+    setDestinationHouseOrApartmentError,
+  ] = useState("");
+  const [selectDateError, setSelectDateError] = useState("");
 
+  // step 2
+
+  const [preferedTimeError, setPreferedTimeError] = useState("");
+  const [restrictionOrFeesError, setRestrictionOrFeesError] = useState("");
+  const [needMovingCompanyError, setNeedMovingCompanyError] = useState("");
+  const [disassembleOrAssembleError, setDisassembleOrAssembleError] =
+    useState("");
+  const [isDateFlexibleError, setIsDateFlexibleError] = useState("");
+
+  // step 3
+
+  const [moreDetailInformationError, setMoreDetailInformationError] =
+    useState("");
+  const [newItemDescriptionError, setNewItemDescriptionError] = useState("");
+  const [newItemQuantityError, setNewItemQuantityError] = useState("");
+
+  // step 4
+
+  const [step4Errors, setStep4Errors] = useState({});
+
+  // validation functions
+
+  // step 1
+
+  const validateStep1 = () => {
+    let isValid = true;
+
+    if (!dataObj.originState) {
+      setOriginStateError("Please select the origin state.");
+      isValid = false;
+    } else {
+      setOriginStateError("");
+    }
+
+    if (!dataObj.originCity) {
+      setOriginCityError("Please select the origin city.");
+      isValid = false;
+    } else {
+      setOriginCityError("");
+    }
+
+    if (!selectedHouseType) {
+      setHouseTypeError("Please select the house type.");
+      isValid = false;
+    } else {
+      setHouseTypeError("");
+    }
+
+    if (!dataObj.destinationState) {
+      setDestinationStateError("Please select the destination state.");
+      isValid = false;
+    } else {
+      setDestinationStateError("");
+    }
+
+    if (!dataObj.destinationCity) {
+      setDestinationCityError("Please select the destination city.");
+      isValid = false;
+    } else {
+      setDestinationCityError("");
+    }
+
+    if (!selectedDestinationHouseOrApartment.selectedHouseType) {
+      setDestinationHouseOrApartmentError(
+        "Please select the destination house or apartment."
+      );
+      isValid = false;
+    } else {
+      setDestinationHouseOrApartmentError("");
+    }
+
+    if (!dataObj.dateOfChange) {
+      setSelectDateError("Please select the Date.");
+      isValid = false;
+    } else {
+      setSelectDateError("");
+    }
+
+    return isValid;
+  };
+
+  // step 2 validation function
+
+  const validateStep2 = () => {
+    let isValid = true;
+
+    if (!dataObj.preferedTimeForMoving) {
+      setPreferedTimeError("Please select a prefered time for moving.");
+      isValid = false;
+    } else {
+      setPreferedTimeError("");
+    }
+
+    if (!dataObj.restrictionOrFees) {
+      setRestrictionOrFeesError(
+        "Please indicate if there are any restrictions or fees."
+      );
+      isValid = false;
+    } else {
+      setRestrictionOrFeesError("");
+    }
+
+    if (!dataObj.needMovingCompany) {
+      setNeedMovingCompanyError(
+        "Please indicate if you need a moving company to pack items."
+      );
+      isValid = false;
+    } else {
+      setNeedMovingCompanyError("");
+    }
+
+    if (!dataObj.disassembleOrAssemble) {
+      setDisassembleOrAssembleError(
+        "Please indicate if there is a need to disassemble or assemble furniture."
+      );
+      isValid = false;
+    } else {
+      setDisassembleOrAssembleError("");
+    }
+
+    if (!dataObj.isDateFlexible) {
+      setIsDateFlexibleError("Please indicate if the date is flexible.");
+      isValid = false;
+    } else {
+      setIsDateFlexibleError("");
+    }
+
+    return isValid;
+  };
+
+  // step 3 validation function
+
+  const validateStep3 = () => {
+    let isValid = true;
+  
+    if (!moreDetailInformation.trim()) {
+      setMoreDetailInformationError("Please provide a detailed description.");
+      isValid = false;
+    } else {
+      setMoreDetailInformationError("");
+    }
+  
+  
+    if (items.length === 0) {
+      if (!newItem.description.trim()) {
+        setNewItemDescriptionError("Description is required.");
+        isValid = false;
+      } else {
+        setNewItemDescriptionError("");
+      }
+  
+      if (!newItem.quantity.trim() || isNaN(newItem.quantity)) {
+        setNewItemQuantityError("Quantity must be a number.");
+        isValid = false;
+      } else {
+        setNewItemQuantityError("");
+      }
+    }
+  
+    return isValid;
+  };
+  
+
+  
+
+  // step 4 validation function
+
+  const validateStep4 = (step4Data) => {
+    const { name, email, phone } = step4Data;
+    let isValid = true;
+    const errors = {};
+
+    // Validate name
+    if (!name || name.trim() === "") {
+      errors.name = "Name is required.";
+      isValid = false;
+    }
+
+    // Validate email
+    if (!email || !isValidEmail(email)) {
+      errors.email = "Please enter a valid email address.";
+      isValid = false;
+    }
+
+    // Validate phone
+    if (!phone || !isValidPhone(phone)) {
+      errors.phone = "Please enter a valid phone number.";
+      isValid = false;
+    }
+
+    // You can add more specific validation rules here
+
+    // Set error state if there are validation errors
+    setStep4Errors(errors);
+
+    return isValid;
+  };
+
+  const isValidEmail = (email) => {
+    // Implement your email validation logic here, e.g., using regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone) => {
+    // Implement your phone number validation logic here, e.g., using regex
+    const phoneRegex = /^\d{10}$/; // Example: 1234567890 (10 digits)
+    return phoneRegex.test(phone);
+  };
+
+  const addItem = () => {
+    if (newItem.description.trim() !== "" && newItem.quantity.trim() !== "") {
+      setItems([...items, newItem]);
+      setNewItem({ description: "", quantity: "" });
+    }
+  };
 
   const estadoOptions = [
     { name: "Acre", code: "AC" },
@@ -97,17 +317,19 @@ const addItem = () => {
       (date.isAfter(today) && date.isBefore(maxDate))
     );
   };
-
-  const [selectedHouseType, setSelectedHouseType] = useState("");
-  const [selectedAccessibility, setSelectedAccessibility] = useState("");
-  const [selectedFloor, setSelectedFloor] = useState("");
-  const [floorNumber, setFloorNumber] = useState("");
   const houseTypeOptions = [
     "House",
     "Apartment",
     "Country House",
     "Studio Apartment",
   ];
+  const accessibilityOptions = ["Stairs", "Elevator", "Ramp"];
+  const floorOptions = ["Ground Floor", "Specific Floor"];
+  const [selectedHouseType, setSelectedHouseType] = useState("");
+  const [selectedAccessibility, setSelectedAccessibility] = useState("");
+  const [selectedFloor, setSelectedFloor] = useState("");
+  const [floorNumber, setFloorNumber] = useState("");
+
   const [
     selectedDestinationHouseOrApartment,
     setSelectedDestinationHouseOrApartment,
@@ -122,6 +344,10 @@ const addItem = () => {
     setSelectedDestinationHouseOrApartment((prevState) => ({
       ...prevState,
       selectedHouseType: value,
+      // Reset the other selections when the house type changes
+      selectedAccessibility: "",
+      selectedFloor: "",
+      floorNumber: "",
     }));
   };
 
@@ -146,34 +372,22 @@ const addItem = () => {
     }));
   };
 
-  const accessibilityOptions = ["Stairs", "Elevator", "Ramp"];
-  const floorOptions = ["Ground Floor", "Specific Floor"];
-
   const handleHouseTypeChange = (value) => {
     setSelectedHouseType(value);
-
-    // Clear the selected values in subsequent dropdowns
-    setSelectedAccessibility("");
-    setSelectedFloor("");
+    setSelectedAccessibility(""); // Clear selected accessibility
+    setSelectedFloor(""); // Clear selected floor
+    setFloorNumber(""); // Clear floor number
   };
 
   const handleAccessibilityChange = (value) => {
     setSelectedAccessibility(value);
-
-    // Clear the selected values in subsequent dropdowns
-    setSelectedFloor("");
-
-    // Show "Select Floor" dropdown only when "Stairs" is selected
-    if (value === "Stairs") {
-      setSelectedFloor(floorOptions[0]); // Set the default value to "Ground Floor"
-    }
+    setSelectedFloor(""); // Clear selected floor
+    setFloorNumber(""); // Clear floor number
   };
 
   const handleFloorChange = (value) => {
     setSelectedFloor(value);
-
-    // Clear the selected floor number
-    setFloorNumber("");
+    setFloorNumber(""); // Clear floor number
   };
 
   // Function to fetch cities based on the selected state
@@ -205,15 +419,21 @@ const addItem = () => {
   };
 
   const moveToStep2 = () => {
-    setCurrentStep(2);
+    if (validateStep1()) {
+      setCurrentStep(2);
+    }
   };
 
   const moveToStep3 = () => {
-    setCurrentStep(3);
+    if (validateStep2()) {
+      setCurrentStep(3);
+    }
   };
 
   const moveToStep4 = () => {
-    setCurrentStep(4);
+    if (validateStep3()) {
+      setCurrentStep(4);
+    }
   };
 
   const moveBackStep1 = () => {
@@ -243,15 +463,34 @@ const addItem = () => {
       });
     }
   };
-console.log(items)
+
   const resetState = () => {
     setDataObj({});
     setCurrentStep(1);
-    setItems([{ description: "", quantity: "" }]);
+    setItems([]); // Clear the items array
     setMoreDetailInformation("");
     setName("");
     setEmail("");
     setPhone("");
+    setPreviewImage(""); // Clear the image preview
+    setCities([]); // Clear the cities list
+    setSelectedEstado(""); // Clear selected state
+    setImageFile(null); // Clear image file
+    setImageURL(null); // Clear image URL
+    setDisplayOrderId(undefined); // Clear display order ID
+    setChangeTime(null); // Clear change time
+    setSelectedHouseType(""); // Clear selected house type
+    setSelectedAccessibility(""); // Clear selected accessibility
+    setSelectedFloor(""); // Clear selected floor
+    setFloorNumber(""); // Clear floor number
+    setSelectedDestinationHouseOrApartment({
+      selectedHouseType: "",
+      selectedAccessibility: "",
+      selectedFloor: "",
+      floorNumber: "",
+    }); // Clear destination house/apartment options
+  
+    
   };
 
   const submitData = async () => {
@@ -327,6 +566,13 @@ console.log(items)
       orderID,
     };
 
+    const isStep4Valid = validateStep4(step4Data);
+    if (!isStep4Valid) {
+      setLoading(false);
+      setCurrentStep(4); // Navigate back to step 4
+      return; // Prevent further submission
+    }
+
     try {
       console.log(formData);
       await createOrder(formData);
@@ -340,9 +586,9 @@ console.log(items)
     }
   };
 
-const removeItems = () => {
-  setItems([])
-}
+  const removeItems = () => {
+    setItems([]);
+  };
 
   const backToForm = () => {
     setCurrentStep(1);
@@ -407,6 +653,20 @@ const removeItems = () => {
                 }}
                 style={{ width: "100%", padding: "10px", margin: "10px 0" }}
               />
+
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {originStateError}
+              </div>
             </Grid>
             <Grid item xs={6}>
               <SelectBox
@@ -415,6 +675,20 @@ const removeItems = () => {
                 onChange={(val) => addValue("originCity", val)}
                 style={{ width: "100%", padding: "10px", margin: "10px 0" }}
               />
+
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {originCityError}
+              </div>
             </Grid>
             {/* multiselections */}
 
@@ -425,9 +699,23 @@ const removeItems = () => {
                 onChange={handleHouseTypeChange}
                 value={selectedHouseType}
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {houseTypeError}
+              </div>
             </Grid>
 
-            {selectedHouseType === "House" && (
+            {/* Render SelectBox for Accessibility */}
+            {selectedHouseType && (
               <Grid item xs={12}>
                 <SelectBox
                   label="Select Accessibility"
@@ -438,6 +726,7 @@ const removeItems = () => {
               </Grid>
             )}
 
+            {/* Render SelectBox for Floor */}
             {selectedAccessibility === "Stairs" && (
               <Grid item xs={12}>
                 <SelectBox
@@ -449,11 +738,12 @@ const removeItems = () => {
               </Grid>
             )}
 
+            {/* Render InputField for Floor Number */}
             {selectedFloor === "Specific Floor" && (
               <Grid item xs={12}>
                 <InputField
                   label="Enter Floor Number"
-                  placeholder={"Enter the Floor Number"}
+                  placeholder="Enter the Floor Number"
                   value={floorNumber}
                   onChange={(e) => setFloorNumber(e.target.value)}
                 />
@@ -478,6 +768,19 @@ const removeItems = () => {
                 }}
                 style={{ width: "100%", padding: "10px", margin: "10px 0" }}
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {destinationStateError}
+              </div>
             </Grid>
             <Grid item xs={6}>
               <SelectBox
@@ -486,6 +789,20 @@ const removeItems = () => {
                 onChange={(val) => addValue("destinationCity", val)}
                 style={{ width: "100%", padding: "10px", margin: "10px 0" }}
               />
+
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {destinationCityError}
+              </div>
             </Grid>
             <Grid item xs={12}>
               <SelectBox
@@ -494,11 +811,31 @@ const removeItems = () => {
                 onChange={handleDestinationHouseTypeChange}
                 value={selectedDestinationHouseOrApartment.selectedHouseType}
               />
+
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {destinationHouseOrApartmentError}
+              </div>
             </Grid>
 
             {/* Render SelectBox for Accessibility */}
-            {selectedDestinationHouseOrApartment.selectedHouseType ===
-              "House" && (
+            {(selectedDestinationHouseOrApartment.selectedHouseType ===
+              "House" ||
+              selectedDestinationHouseOrApartment.selectedHouseType ===
+                "Apartment" ||
+              selectedDestinationHouseOrApartment.selectedHouseType ===
+                "Country House" ||
+              selectedDestinationHouseOrApartment.selectedHouseType ===
+                "Studio Apartment") && (
               <Grid item xs={12}>
                 <SelectBox
                   label="Select Accessibility"
@@ -530,7 +867,7 @@ const removeItems = () => {
               <Grid item xs={12}>
                 <InputField
                   label="Enter Floor Number"
-                  placeholder={"Enter the Floor Number"}
+                  placeholder="Enter the Floor Number"
                   value={selectedDestinationHouseOrApartment.floorNumber}
                   onChange={(e) =>
                     handleDestinationFloorNumberChange(e.target.value)
@@ -545,7 +882,7 @@ const removeItems = () => {
             <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Select a date"
+                  label="dd/mm/yyyy"
                   value={selectedDate}
                   onChange={(val) => {
                     addValue("dateOfChange", val.$d);
@@ -564,7 +901,37 @@ const removeItems = () => {
                   }}
                 />
               </LocalizationProvider>
-              <div style={{width: '100%',color: '#FF5F5F', fontSize: 14, fontStyle: 'italic', fontWeight: '400', wordWrap: 'break-word', marginTop:'5px'}}>Atenção: a data máxima da mudança é de até 90 dias a partir do dia de hoje.</div>
+              {selectDateError.length === 0 ? (
+                <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                Atenção: a data máxima da mudança é de até 90 dias a partir do
+                dia de hoje.
+              </div>
+              ) : (
+                <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginTop: "5px",
+                }}
+              >
+                {selectDateError}
+              </div>
+              )}
+              
             </Grid>
             <Grid item xs={12}>
               <div>
@@ -591,26 +958,87 @@ const removeItems = () => {
                 timeValue={changeTime}
                 channgeTimeHandle={handleChangeTime}
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                }}
+              >
+                {preferedTimeError}
+              </div>
               <CheckBox
                 defaultValue={dataObj?.restrictionOrFees}
                 onChange={(val) => addValue("restrictionOrFees", val)}
                 label="Há alguma restrição ou taxa para transitar ou estacionar em frente a um dos endereços?"
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                }}
+              >
+                {restrictionOrFeesError}
+              </div>
               <CheckBox
                 defaultValue={dataObj?.needMovingCompany}
                 onChange={(val) => addValue("needMovingCompany", val)}
                 label="Você precisa que a empresa de mudanças embale algum item para você?"
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                }}
+              >
+                {needMovingCompanyError}
+              </div>
               <CheckBox
                 defaultValue={dataObj?.disassembleOrAssemble}
                 onChange={(val) => addValue("disassembleOrAssemble", val)}
                 label="Existe necessidade de desmontagem e montagem de móveis?"
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                }}
+              >
+                {disassembleOrAssembleError}
+              </div>
               <CheckBox
                 defaultValue={dataObj?.isDateFlexible}
                 onChange={(val) => addValue("isDateFlexible", val)}
                 label="A data é flexível?"
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginBottom: "15px",
+                }}
+              >
+                {isDateFlexibleError}
+              </div>
             </Grid>
             <Grid item xs={12}>
               <div style={{ display: "flex", gap: "20px", marginTop: "-20px" }}>
@@ -648,6 +1076,19 @@ const removeItems = () => {
                 className="textArea-form"
                 placeholder="The more detailed the description, the more accurately companies can provide a suitable quote."
               />
+              <div
+                style={{
+                  width: "100%",
+                  color: "#FF5F5F",
+                  fontSize: 14,
+                  fontStyle: "italic",
+                  fontWeight: "400",
+                  wordWrap: "break-word",
+                  marginBottom: "15px",
+                }}
+              >
+                {moreDetailInformationError}
+              </div>
               <div className="form-heading1">If you prefer, add items</div>
 
               <div className="form-add-field">
@@ -659,6 +1100,7 @@ const removeItems = () => {
                     setNewItem({ ...newItem, description: e.target.value })
                   }
                 />
+
                 <InputField
                   placeholder="Quantity"
                   style={{ flex: 4 }}
@@ -667,6 +1109,7 @@ const removeItems = () => {
                     setNewItem({ ...newItem, quantity: e.target.value })
                   }
                 />
+
                 <Btn
                   label="+"
                   onClick={addItem}
@@ -674,9 +1117,37 @@ const removeItems = () => {
                     height: "40px",
                     background: "#00A907",
                     padding: "0px 20px",
+                    fontSize:"30px"
                   }}
                 />
               </div>
+              <div style={{ display: "flex", marginLeft: "15px" }}>
+                <div
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {newItemDescriptionError}
+                </div>
+                <div
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {newItemQuantityError}
+                </div>
+              </div>
+
               <div>
                 {items.map((item, index) => (
                   <div
@@ -685,20 +1156,36 @@ const removeItems = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       padding: "8px",
-                      borderBottom: "1px solid #ccc"
+                      borderBottom: "1px solid #ccc",
                     }}
                   >
                     <div style={{ flex: 1 }}>{item.description}</div>
-                    <div style={{ flex: 1, textAlign: "left" , marginLeft:"50px"}}>
+                    <div
+                      style={{ flex: 1, textAlign: "left", marginLeft: "50px" }}
+                    >
                       {item.quantity}
                     </div>
                   </div>
                 ))}
               </div>
               {items.length === 0 ? null : (
-                <div onClick={removeItems} style={{textAlign: 'right', cursor: 'pointer', color: '#EA4646', fontSize: 16, fontStyle: 'italic', fontWeight: 'bold', textDecoration: 'underline',  wordWrap: 'break-word', marginTop:"10px"}}>Limpar lista</div>
+                <div
+                  onClick={removeItems}
+                  style={{
+                    textAlign: "right",
+                    cursor: "pointer",
+                    color: "#EA4646",
+                    fontSize: 16,
+                    fontStyle: "italic",
+                    fontWeight: "bold",
+                    textDecoration: "underline",
+                    wordWrap: "break-word",
+                    marginTop: "10px",
+                  }}
+                >
+                  Limpar lista
+                </div>
               )}
-              
             </Grid>
             <Grid item xs={12}>
               <div
@@ -737,16 +1224,52 @@ const removeItems = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name:"
               />
+              {step4Errors.name && <div
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {step4Errors.name}
+                </div> }
               <InputField
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email:"
               />
+              {step4Errors.email && <div
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {step4Errors.email}
+                </div> }
               <InputField
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone:"
               />
+                {step4Errors.phone && <div
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                  }}
+                >
+                  {step4Errors.phone}
+                </div> }
               <div
                 className="upload-photo-box"
                 onClick={() => imageInputRef.current.click()}
