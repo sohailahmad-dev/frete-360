@@ -22,7 +22,7 @@ import dayjs from "dayjs";
 export default function FormHome() {
   const [dataObj, setDataObj] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
-  const options = ["House", "Apartment", "Country House", "Studio Apartment"];
+
   const [moreDetailInformation, setMoreDetailInformation] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,6 +38,21 @@ export default function FormHome() {
   const imageInputRef = useRef();
   const [items, setItems] = useState([]);
   const [newItem, setNewItem] = useState({ description: "", quantity: "" });
+
+  const options = [
+    "Casa",
+    "Apartamento",
+    "Casa de Campo",
+    "Apartamento Estúdio",
+  ];
+  const accessibilityOptions = ["Escadas", "Elevador", "Rampa"];
+  const floorOptions = ["Térreo", "Andar Específico"];
+  const houseTypeOptions = [
+    "Casa",
+    "Apartamento",
+    "Casa de Campo",
+    "Apartamento Estúdio",
+  ];
 
   // Error States
   // step 1
@@ -80,35 +95,35 @@ export default function FormHome() {
     let isValid = true;
 
     if (!dataObj.originState) {
-      setOriginStateError("Please select the origin state.");
+      setOriginStateError("Por favor, selecione o estado de origem.");
       isValid = false;
     } else {
       setOriginStateError("");
     }
 
     if (!dataObj.originCity) {
-      setOriginCityError("Please select the origin city.");
+      setOriginCityError("Por favor, selecione a cidade de origem.");
       isValid = false;
     } else {
       setOriginCityError("");
     }
 
     if (!selectedHouseType) {
-      setHouseTypeError("Please select the house type.");
+      setHouseTypeError("Por favor, selecione o tipo de casa.");
       isValid = false;
     } else {
       setHouseTypeError("");
     }
 
     if (!dataObj.destinationState) {
-      setDestinationStateError("Please select the destination state.");
+      setDestinationStateError("Por favor, selecione o estado de destino.");
       isValid = false;
     } else {
       setDestinationStateError("");
     }
 
     if (!dataObj.destinationCity) {
-      setDestinationCityError("Please select the destination city.");
+      setDestinationCityError("Por favor, selecione a cidade de destino.");
       isValid = false;
     } else {
       setDestinationCityError("");
@@ -116,7 +131,7 @@ export default function FormHome() {
 
     if (!selectedDestinationHouseOrApartment.selectedHouseType) {
       setDestinationHouseOrApartmentError(
-        "Please select the destination house or apartment."
+        "Por favor, selecione a casa ou apartamento de destino."
       );
       isValid = false;
     } else {
@@ -124,7 +139,7 @@ export default function FormHome() {
     }
 
     if (!dataObj.dateOfChange) {
-      setSelectDateError("Please select the Date.");
+      setSelectDateError("Por favor, selecione a data.");
       isValid = false;
     } else {
       setSelectDateError("");
@@ -133,13 +148,15 @@ export default function FormHome() {
     return isValid;
   };
 
-  // step 2 validation function
+  // Step 2 validation function
 
   const validateStep2 = () => {
     let isValid = true;
 
     if (!dataObj.preferedTimeForMoving) {
-      setPreferedTimeError("Please select a prefered time for moving.");
+      setPreferedTimeError(
+        "Por favor, selecione um horário preferido para a mudança."
+      );
       isValid = false;
     } else {
       setPreferedTimeError("");
@@ -147,7 +164,7 @@ export default function FormHome() {
 
     if (!dataObj.restrictionOrFees) {
       setRestrictionOrFeesError(
-        "Please indicate if there are any restrictions or fees."
+        "Por favor, indique se há restrições ou taxas."
       );
       isValid = false;
     } else {
@@ -156,7 +173,7 @@ export default function FormHome() {
 
     if (!dataObj.needMovingCompany) {
       setNeedMovingCompanyError(
-        "Please indicate if you need a moving company to pack items."
+        "Por favor, indique se precisa de uma empresa de mudanças para empacotar os itens."
       );
       isValid = false;
     } else {
@@ -165,7 +182,7 @@ export default function FormHome() {
 
     if (!dataObj.disassembleOrAssemble) {
       setDisassembleOrAssembleError(
-        "Please indicate if there is a need to disassemble or assemble furniture."
+        "Por favor, indique se há necessidade de desmontar ou montar móveis."
       );
       isValid = false;
     } else {
@@ -173,7 +190,7 @@ export default function FormHome() {
     }
 
     if (!dataObj.isDateFlexible) {
-      setIsDateFlexibleError("Please indicate if the date is flexible.");
+      setIsDateFlexibleError("Por favor, indique se a data é flexível.");
       isValid = false;
     } else {
       setIsDateFlexibleError("");
@@ -182,42 +199,40 @@ export default function FormHome() {
     return isValid;
   };
 
-  // step 3 validation function
+  // Step 3 validation function
 
   const validateStep3 = () => {
     let isValid = true;
-  
+
     if (!moreDetailInformation.trim()) {
-      setMoreDetailInformationError("Please provide a detailed description.");
+      setMoreDetailInformationError(
+        "Por favor, forneça uma descrição detalhada."
+      );
       isValid = false;
     } else {
       setMoreDetailInformationError("");
     }
-  
-  
+
     if (items.length === 0) {
       if (!newItem.description.trim()) {
-        setNewItemDescriptionError("Description is required.");
+        setNewItemDescriptionError("Descrição é obrigatória.");
         isValid = false;
       } else {
         setNewItemDescriptionError("");
       }
-  
+
       if (!newItem.quantity.trim() || isNaN(newItem.quantity)) {
-        setNewItemQuantityError("Quantity must be a number.");
+        setNewItemQuantityError("A quantidade deve ser um número.");
         isValid = false;
       } else {
         setNewItemQuantityError("");
       }
     }
-  
+
     return isValid;
   };
-  
 
-  
-
-  // step 4 validation function
+  // Step 4 validation function
 
   const validateStep4 = (step4Data) => {
     const { name, email, phone } = step4Data;
@@ -226,19 +241,19 @@ export default function FormHome() {
 
     // Validate name
     if (!name || name.trim() === "") {
-      errors.name = "Name is required.";
+      errors.name = "Nome é obrigatório.";
       isValid = false;
     }
 
     // Validate email
     if (!email || !isValidEmail(email)) {
-      errors.email = "Please enter a valid email address.";
+      errors.email = "Por favor, insira um endereço de e-mail válido.";
       isValid = false;
     }
 
     // Validate phone
     if (!phone || !isValidPhone(phone)) {
-      errors.phone = "Please enter a valid phone number.";
+      errors.phone = "Por favor, insira um número de telefone válido.";
       isValid = false;
     }
 
@@ -251,15 +266,15 @@ export default function FormHome() {
   };
 
   const isValidEmail = (email) => {
-    // Implement your email validation logic here, e.g., using regex
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    // Implemente sua lógica de validação de e-mail aqui, por exemplo, usando regex
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regexEmail.test(email);
   };
 
   const isValidPhone = (phone) => {
-    // Implement your phone number validation logic here, e.g., using regex
-    const phoneRegex = /^\d{10}$/; // Example: 1234567890 (10 digits)
-    return phoneRegex.test(phone);
+    // Implemente sua lógica de validação de número de telefone aqui, por exemplo, usando regex
+    const regexPhone = /^\d{10}$/; // Exemplo: 1234567890 (10 dígitos)
+    return regexPhone.test(phone);
   };
 
   const addItem = () => {
@@ -301,10 +316,6 @@ export default function FormHome() {
 
   const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date.$d);
-  };
-
   const handleChangeTime = (time) => {
     setChangeTime(time.$d);
   };
@@ -317,14 +328,7 @@ export default function FormHome() {
       (date.isAfter(today) && date.isBefore(maxDate))
     );
   };
-  const houseTypeOptions = [
-    "House",
-    "Apartment",
-    "Country House",
-    "Studio Apartment",
-  ];
-  const accessibilityOptions = ["Stairs", "Elevator", "Ramp"];
-  const floorOptions = ["Ground Floor", "Specific Floor"];
+
   const [selectedHouseType, setSelectedHouseType] = useState("");
   const [selectedAccessibility, setSelectedAccessibility] = useState("");
   const [selectedFloor, setSelectedFloor] = useState("");
@@ -489,8 +493,6 @@ export default function FormHome() {
       selectedFloor: "",
       floorNumber: "",
     }); // Clear destination house/apartment options
-  
-    
   };
 
   const submitData = async () => {
@@ -636,7 +638,7 @@ export default function FormHome() {
           <Grid container spacing={2}>
             {/* Step 1 content */}
             <Grid item xs={12}>
-              <div className="form-heading">Qual origem da mudança?</div>
+              <div className="form-heading">Qual é a origem da mudança?</div>
             </Grid>
             <Grid item xs={6}>
               <SelectBox
@@ -694,7 +696,7 @@ export default function FormHome() {
 
             <Grid item xs={12}>
               <SelectBox
-                label="Select House Type"
+                label="Selecione o Tipo de Casa"
                 options={houseTypeOptions}
                 onChange={handleHouseTypeChange}
                 value={selectedHouseType}
@@ -718,7 +720,7 @@ export default function FormHome() {
             {selectedHouseType && (
               <Grid item xs={12}>
                 <SelectBox
-                  label="Select Accessibility"
+                  label="Selecione a Acessibilidade"
                   options={accessibilityOptions}
                   onChange={handleAccessibilityChange}
                   value={selectedAccessibility}
@@ -727,10 +729,10 @@ export default function FormHome() {
             )}
 
             {/* Render SelectBox for Floor */}
-            {selectedAccessibility === "Stairs" && (
+            {selectedAccessibility === "Escadas" && (
               <Grid item xs={12}>
                 <SelectBox
-                  label="Select Floor"
+                  label="Selecione o Andar"
                   options={floorOptions}
                   onChange={handleFloorChange}
                   value={selectedFloor}
@@ -739,11 +741,11 @@ export default function FormHome() {
             )}
 
             {/* Render InputField for Floor Number */}
-            {selectedFloor === "Specific Floor" && (
+            {selectedFloor === "Andar Específico" && (
               <Grid item xs={12}>
                 <InputField
-                  label="Enter Floor Number"
-                  placeholder="Enter the Floor Number"
+                  label="Informe o Número do Andar"
+                  placeholder="Informe o Número do Andar"
                   value={floorNumber}
                   onChange={(e) => setFloorNumber(e.target.value)}
                 />
@@ -751,7 +753,7 @@ export default function FormHome() {
             )}
 
             <Grid item xs={12}>
-              <div className="form-heading">Qual destino da mudança?</div>
+              <div className="form-heading">Qual é o destino da mudança?</div>
             </Grid>
             <Grid item xs={6}>
               <SelectBox
@@ -829,16 +831,16 @@ export default function FormHome() {
 
             {/* Render SelectBox for Accessibility */}
             {(selectedDestinationHouseOrApartment.selectedHouseType ===
-              "House" ||
+              "Casa" ||
               selectedDestinationHouseOrApartment.selectedHouseType ===
-                "Apartment" ||
+                "Apartamento" ||
               selectedDestinationHouseOrApartment.selectedHouseType ===
-                "Country House" ||
+                "Casa de Campo" ||
               selectedDestinationHouseOrApartment.selectedHouseType ===
-                "Studio Apartment") && (
+                "Apartamento Estúdio") && (
               <Grid item xs={12}>
                 <SelectBox
-                  label="Select Accessibility"
+                  label="Selecione a Acessibilidade"
                   options={accessibilityOptions}
                   onChange={handleDestinationAccessibilityChange}
                   value={
@@ -850,10 +852,10 @@ export default function FormHome() {
 
             {/* Render SelectBox for Floor */}
             {selectedDestinationHouseOrApartment.selectedAccessibility ===
-              "Stairs" && (
+              "Escadas" && (
               <Grid item xs={12}>
                 <SelectBox
-                  label="Select Floor"
+                  label="Selecione o Andar"
                   options={floorOptions}
                   onChange={handleDestinationFloorChange}
                   value={selectedDestinationHouseOrApartment.selectedFloor}
@@ -863,11 +865,11 @@ export default function FormHome() {
 
             {/* Render InputField for Floor Number */}
             {selectedDestinationHouseOrApartment.selectedFloor ===
-              "Specific Floor" && (
+              "Andar Específico" && (
               <Grid item xs={12}>
                 <InputField
-                  label="Enter Floor Number"
-                  placeholder="Enter the Floor Number"
+                  label="Informe o Número do Andar"
+                  placeholder="Informe o Número do Andar"
                   value={selectedDestinationHouseOrApartment.floorNumber}
                   onChange={(e) =>
                     handleDestinationFloorNumberChange(e.target.value)
@@ -877,7 +879,7 @@ export default function FormHome() {
             )}
 
             <Grid item xs={12}>
-              <div className="form-heading">Qual a data da mudança?</div>
+              <div className="form-heading">Qual é a data da mudança?</div>
             </Grid>
             <Grid item xs={12}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -892,7 +894,7 @@ export default function FormHome() {
                   error={!isDateValid(dayjs(selectedDate))}
                   helperText={
                     !isDateValid(dayjs(selectedDate))
-                      ? "Date cannot be more than 90 days from the request date"
+                      ? "A data não pode ser superior a 90 dias da data de solicitação"
                       : ""
                   }
                   sx={{
@@ -903,35 +905,34 @@ export default function FormHome() {
               </LocalizationProvider>
               {selectDateError.length === 0 ? (
                 <div
-                style={{
-                  width: "100%",
-                  color: "#FF5F5F",
-                  fontSize: 14,
-                  fontStyle: "italic",
-                  fontWeight: "400",
-                  wordWrap: "break-word",
-                  marginTop: "5px",
-                }}
-              >
-                Atenção: a data máxima da mudança é de até 90 dias a partir do
-                dia de hoje.
-              </div>
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                    marginTop: "5px",
+                  }}
+                >
+                  Atenção: a data máxima da mudança é de até 90 dias a partir do
+                  dia de hoje.
+                </div>
               ) : (
                 <div
-                style={{
-                  width: "100%",
-                  color: "#FF5F5F",
-                  fontSize: 14,
-                  fontStyle: "italic",
-                  fontWeight: "400",
-                  wordWrap: "break-word",
-                  marginTop: "5px",
-                }}
-              >
-                {selectDateError}
-              </div>
+                  style={{
+                    width: "100%",
+                    color: "#FF5F5F",
+                    fontSize: 14,
+                    fontStyle: "italic",
+                    fontWeight: "400",
+                    wordWrap: "break-word",
+                    marginTop: "5px",
+                  }}
+                >
+                  {selectDateError}
+                </div>
               )}
-              
             </Grid>
             <Grid item xs={12}>
               <div>
@@ -944,6 +945,7 @@ export default function FormHome() {
             </Grid>
           </Grid>
         )}
+
         {/* Step 2 */}
         {currentStep === 2 && (
           <Grid container spacing={2}>
@@ -1117,7 +1119,7 @@ export default function FormHome() {
                     height: "40px",
                     background: "#00A907",
                     padding: "0px 20px",
-                    fontSize:"30px"
+                    fontSize: "30px",
                   }}
                 />
               </div>
@@ -1224,7 +1226,8 @@ export default function FormHome() {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name:"
               />
-              {step4Errors.name && <div
+              {step4Errors.name && (
+                <div
                   style={{
                     width: "100%",
                     color: "#FF5F5F",
@@ -1235,13 +1238,15 @@ export default function FormHome() {
                   }}
                 >
                   {step4Errors.name}
-                </div> }
+                </div>
+              )}
               <InputField
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email:"
               />
-              {step4Errors.email && <div
+              {step4Errors.email && (
+                <div
                   style={{
                     width: "100%",
                     color: "#FF5F5F",
@@ -1252,13 +1257,15 @@ export default function FormHome() {
                   }}
                 >
                   {step4Errors.email}
-                </div> }
+                </div>
+              )}
               <InputField
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone:"
               />
-                {step4Errors.phone && <div
+              {step4Errors.phone && (
+                <div
                   style={{
                     width: "100%",
                     color: "#FF5F5F",
@@ -1269,7 +1276,8 @@ export default function FormHome() {
                   }}
                 >
                   {step4Errors.phone}
-                </div> }
+                </div>
+              )}
               <div
                 className="upload-photo-box"
                 onClick={() => imageInputRef.current.click()}
