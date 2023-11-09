@@ -185,9 +185,32 @@ export default function WishlistModal({ open, onClose, order }) {
                   </div>
                   <div className="wishlist-modal-underline-item2">
                     <div className="wishlist-text-heading2">
+                    Precisa de embalagem pela empresa de mudanças:
+                    </div>
+                    <div className="wishlist-text-content2">
+                      {order.step2Data.needMovingCompany === "false"
+                        ? "Não"
+                        : "Sim"}
+                    </div>
+                  </div>
+                  <div className="wishlist-modal-underline-item2">
+                    <div className="wishlist-text-heading2">
+                    A data é flexivel:
+                    </div>
+                    <div className="wishlist-text-content2">
+                      {order.step2Data.isDateFlexible === "false"
+                        ? "Não"
+                        : "Sim"}
+                    </div>
+                  </div>
+
+                  <div className="wishlist-modal-underline-item2">
+                    <div className="wishlist-text-heading2">
                       Restrição ou taxa de trânsito:
                     </div>
-                    <div className="wishlist-text-content2">Sim - R$15</div>
+                    <div className="wishlist-text-content2">{order.step2Data.restrictionOrFees === "false"
+                        ? "Não"
+                        : "Sim"} - R$15</div>
                   </div>
                 </div>
               </Grid>
